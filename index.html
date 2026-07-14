@@ -112,6 +112,42 @@
   .links-row a:hover{background:color-mix(in srgb,var(--brand) 16%,transparent);color:#fff;}
 
 
+
+  /* section back-to-top */
+  .sec-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:4px;}
+  .sec-head .sec-head-text{min-width:0;flex:1;}
+  .sec-head .section-label{margin-bottom:8px;}
+  .sec-head .section-title{margin-bottom:0;}
+  .back-top{
+    flex:none;
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--mut);text-decoration:none;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);
+    padding:9px 12px;border-radius:2px;white-space:nowrap;transition:.2s;
+  }
+  .back-top:hover{color:#fff;border-color:var(--brand);background:color-mix(in srgb,var(--brand) 14%,transparent);box-shadow:0 0 16px color-mix(in srgb,var(--brand) 20%,transparent);}
+  .back-top span{font-size:.9rem;line-height:1;}
+  .sec-foot{display:flex;justify-content:center;margin-top:28px;padding-top:18px;border-top:1px dashed var(--line);}
+  .sec-foot .back-top{padding:10px 16px;}
+  #racers{scroll-margin-top:80px;}
+  .racers-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:8px 0 14px;}
+  .racers-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.3rem,2.6vw,1.8rem);color:#fff;margin:0;}
+  .racers-head .section-label{margin:0 0 4px;}
+  .float-top{
+    position:fixed;right:18px;bottom:22px;z-index:60;
+    display:none;align-items:center;gap:6px;
+    font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;text-decoration:none;
+    border:1px solid color-mix(in srgb,var(--brand) 55%,transparent);
+    background:color-mix(in srgb,var(--brand) 88%,#000);backdrop-filter:blur(8px);
+    padding:12px 14px;border-radius:999px;
+    box-shadow:0 8px 28px rgba(0,0,0,.35);transition:opacity .25s,transform .25s;
+  }
+  .float-top.show{display:inline-flex;}
+  .float-top:hover{transform:translateY(-2px);box-shadow:0 12px 32px color-mix(in srgb,var(--brand) 35%,transparent);}
+  @media print{.back-top,.float-top,.sec-foot{display:none!important;}}
+
   /* FAQ accordion */
   .faq-list{display:flex;flex-direction:column;gap:10px;max-width:920px;}
   .faq-item{border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(0,0,0,.22));border-radius:4px;overflow:hidden;transition:border-color .25s,box-shadow .25s;}
@@ -224,14 +260,30 @@
     </div>
 
     <section id="racers">
+      <div class="racers-head">
+        <div>
+          <div class="section-label">Racers</div>
+          <h2>角色图鉴</h2>
+        </div>
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
       <div class="filters" id="filters"></div>
       <div class="grid" id="grid"></div>
+
+      <div class="sec-foot">
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
     </section>
 
     <section class="section" id="rules">
-      <div class="section-label">Rules</div>
-      <h2 class="section-title">游戏规则一览</h2>
-      <p class="section-sub">每位玩家选择4名角色组成队伍，通过4场比赛积累分数。每场比赛派出1名角色参赛，任意2人冲过终点线即结束。</p>
+      <div class="sec-head">
+        <div class="sec-head-text">
+          <div class="section-label">Rules</div>
+          <h2 class="section-title">游戏规则一览</h2>
+        </div>
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
+<p class="section-sub">每位玩家选择4名角色组成队伍，通过4场比赛积累分数。每场比赛派出1名角色参赛，任意2人冲过终点线即结束。</p>
       <div class="rules-grid">
         <div class="rule-card"><div class="rule-icon">🎲</div><h3>主要移动</h3><p>每回合掷一个骰子（1-6），按点数沿赛道前进。这是游戏最核心的动作，大部分角色的技能都围绕它展开。</p></div>
         <div class="rule-card"><div class="rule-icon">🏃</div><h3>经过（Passing）</h3><p>当选手A的移动从选手B的后面开始、在B的前面停下，就算「经过」B。某些绊倒技能会因此触发。</p></div>
@@ -240,12 +292,21 @@
         <div class="rule-card"><div class="rule-icon">⚖️</div><h3>结算顺序</h3><p>多技能同时生效时：<code>① 格子效果 → ② 当前玩家 → ③ 顺时针其他玩家</code></p></div>
         <div class="rule-card"><div class="rule-icon">🏆</div><h3>计分方式</h3><p>每场比赛第1名获金奖牌，第2名获银奖牌。4场后总奖牌多者胜。王牌宜留后期。</p></div>
       </div>
+    
+      <div class="sec-foot">
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
     </section>
 
     <section class="section" id="mechanics">
-      <div class="section-label">Mechanics</div>
-      <h2 class="section-title">核心机制详解</h2>
-      <p class="section-sub">理解这些底层机制，才能在游戏中做出最优决策。</p>
+      <div class="sec-head">
+        <div class="sec-head-text">
+          <div class="section-label">Mechanics</div>
+          <h2 class="section-title">核心机制详解</h2>
+        </div>
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
+<p class="section-sub">理解这些底层机制，才能在游戏中做出最优决策。</p>
       <div class="mech-grid">
         <div class="mech-card"><span class="mech-icon">🔄</span><h4>重置骰子</h4><p>每位选手每回合可以重置一次自己的主要移动骰子。骰贩子在场上时，这个规则成为全局效果。</p></div>
         <div class="mech-card"><span class="mech-icon">🧲</span><h4>传送 / 瞬移</h4><p>将棋子放到新的格子上。传送不算作一次移动，但之后仍可执行主要移动。催眠师、电灯泡等使用此机制。</p></div>
@@ -254,25 +315,43 @@
         <div class="mech-card"><span class="mech-icon">🎭</span><h4>连锁反应</h4><p>派对咖让所有人靠拢，触发吸盘鱼的复制效果。山寨猫持续获得领先者技能。一个技能触发多个连锁。</p></div>
         <div class="mech-card"><span class="mech-icon">📊</span><h4>分数筹码</h4><p>可爱废柴落后时获得分数筹码。西西弗斯掷出6点时消耗筹码传送回起点。资源管理型技能。</p></div>
       </div>
+    
+      <div class="sec-foot">
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
     </section>
 
     <section class="section" id="tips">
-      <div class="section-label">Strategy</div>
-      <h2 class="section-title">策略与攻略</h2>
-      <p class="section-sub">来自社区与图鉴整理的高阶玩法建议。</p>
+      <div class="sec-head">
+        <div class="sec-head-text">
+          <div class="section-label">Strategy</div>
+          <h2 class="section-title">策略与攻略</h2>
+        </div>
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
+<p class="section-sub">来自社区与图鉴整理的高阶玩法建议。</p>
       <div class="tips-grid">
         <div class="tip-card"><span class="tip-num">01</span><span class="tip-icon">🏆</span><h4>角色搭配公式</h4><p>建议搭配进攻型 + 辅助型 + 特殊型各一名。例如：炼金术士（加速）+ 啦啦队长（鼓励）+ 魔术师（重掷）+ 挪挪（复制增益）。</p></div>
         <div class="tip-card"><span class="tip-num">02</span><span class="tip-icon">🎭</span><h4>山寨猫永远领先</h4><p>保持第一才能持续获得最强技能。注意：如果领先者的技能优先级更高（如巨婴），山寨猫不会压过对方——对方技能优先。</p></div>
         <div class="tip-card"><span class="tip-num">03</span><span class="tip-icon">🌀</span><h4>骰贩子改变底层规则</h4><p>骰贩子在场上时，每位选手每回合可重置骰子。配合船长（掷1提前行动）可打乱对手节奏。全局影响型角色。</p></div>
         <div class="tip-card"><span class="tip-num">04</span><span class="tip-icon">🎪</span><h4>派对咖连锁核心</h4><p>所有选手向你靠拢，与你同格的人越多你的移动加成越大。适合触发吸盘鱼、浪漫者等连锁技能。聚怪战术。</p></div>
       </div>
+    
+      <div class="sec-foot">
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
     </section>
 
 
     <section class="section" id="faq">
-      <div class="section-label">Rulings · FAQ</div>
-      <h2 class="section-title">模糊问题 · 官方裁定</h2>
-      <p class="section-sub">全网争议最大的 8 条规则歧义。点击问题展开：玩家分歧 A/B + 官方定论。含挪挪（蹭蹭怪）联动、半人马多次超越、重掷回档、冲线判定等。</p>
+      <div class="sec-head">
+        <div class="sec-head-text">
+          <div class="section-label">Rulings · FAQ</div>
+          <h2 class="section-title">模糊问题 · 官方裁定</h2>
+        </div>
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
+<p class="section-sub">全网争议最大的 8 条规则歧义。点击问题展开：玩家分歧 A/B + 官方定论。含挪挪（蹭蹭怪）联动、半人马多次超越、重掷回档、冲线判定等。</p>
       <div class="faq-toolbar">
         <button type="button" id="faqOpenAll">全部展开</button>
         <button type="button" id="faqCloseAll">全部收起</button>
@@ -435,12 +514,21 @@
   <p class="faq-src">来源整理：设计师 FAQ · 桌游库规则补全 · BGG 社区设计师回复。桌面裁定请以最新官方文本为准。</p>
 </div>
 
+    
+      <div class="sec-foot">
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
     </section>
 
     <section class="section" id="strategy">
-      <div class="section-label">Deep Dive</div>
-      <h2 class="section-title">类型深挖速览</h2>
-      <p class="section-sub">更完整的编队、出场顺序与克制表见同目录 <code>魔法运动员-策略深挖.md</code>。</p>
+      <div class="sec-head">
+        <div class="sec-head-text">
+          <div class="section-label">Deep Dive</div>
+          <h2 class="section-title">类型深挖速览</h2>
+        </div>
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
+<p class="section-sub">更完整的编队、出场顺序与克制表见同目录 <code>魔法运动员-策略深挖.md</code>。</p>
       <div class="strat-grid">
         <div class="strat-card"><span class="strat-num">LEECH</span><h4>蹭步坐收</h4><p>靠全场事件前进。骰贩子改写重置规则，挪挪吃一切技能触发，吸盘贴车冲线。</p><ul><li>引擎：骰贩 + 挪挪 + 派对</li><li>反制：巨婴拆同格、少互动</li></ul></div>
         <div class="strat-card"><span class="strat-num">COPY</span><h4>复制预测</h4><p>山寨猫持续挂领先者技能；双胞胎吃上场冠军；军师赌收束。</p><ul><li>猫队先抢第一</li><li>冲突时对方技能优先</li></ul></div>
@@ -452,9 +540,13 @@
         <a href="魔法运动员-策略深挖.md">打开完整策略文档</a>
         <a href="魔法运动员-速查表.html">打开打印速查表</a>
       </div>
+    
+      <div class="sec-foot">
+        <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
+      </div>
     </section>
 
-    <footer>MAGICAL ATHLETE · CHARACTER GALLERY · 36 RACERS · AGNES CMYK ART · BUILD 2026-07-15-v2-faq</footer>
+    <footer>MAGICAL ATHLETE · CHARACTER GALLERY · 36 RACERS · AGNES CMYK ART · BUILD 2026-07-15-v3-backtop</footer>
   </div>
 
   <div class="modal" id="modal">
@@ -566,6 +658,17 @@
   document.getElementById('mclose').addEventListener('click',closeModal);
   modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
-  </script>
+  
+  // floating back-to-top
+  (function(){
+    const btn=document.getElementById('floatTop');
+    if(!btn) return;
+    const onScroll=()=>{btn.classList.toggle('show', window.scrollY>420);};
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  })();
+
+</script>
+  <a class="float-top" id="floatTop" href="#top" title="返回页首">↑ 页首</a>
 </body>
 </html>

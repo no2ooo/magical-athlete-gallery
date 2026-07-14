@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="neon">
+<html lang="zh-CN" data-theme="paper">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -9,12 +9,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet"/>
 <style>
-  :root, [data-theme="neon"]{
-    --bg:#03050a; --brand:#2f76e5; --teal:#1f4a55;
-    --tx:#e8ecf2; --mut:rgba(232,236,242,.45); --line:rgba(255,255,255,.09);
-    --nav-bg:rgba(3,5,10,.88); --chip-tx:#000;
-    --modal-grad:linear-gradient(160deg,#0a0f1c,#05070d);
-    --gold-accent:#f6db44;
+  :root, [data-theme="paper"]{
+    --bg:#f4f4f1; --brand:#111111; --teal:#4b5563;
+    --tx:#111111; --mut:rgba(17,17,17,.55); --line:rgba(17,17,17,.12);
+    --nav-bg:rgba(255,255,255,.94); --chip-tx:#ffffff;
+    --modal-grad:linear-gradient(160deg,#ffffff,#f0f0eb);
+    --gold-accent:#b8860b;
+    --panel:#ffffff; --panel-2:#fafaf7;
+    --over-grad:linear-gradient(0deg,rgba(255,255,255,.97),rgba(255,255,255,.7) 60%,transparent);
+    --name-grad:linear-gradient(transparent,rgba(255,255,255,.96) 42%);
+    --star-opacity:0;
+    --vignette:none;
+    --frame-bg:linear-gradient(160deg,#fff,#f3f3ee);
+    --card-soft:linear-gradient(160deg,#fff,#f6f6f2);
+    --text-on-dark:#111;
+    --shadow-soft:0 10px 30px rgba(0,0,0,.08);
   }
   [data-theme="gold"]{
     --bg:#1a1205; --brand:#daa520; --teal:#8b6914;
@@ -22,7 +31,17 @@
     --nav-bg:rgba(26,18,5,.9); --chip-tx:#1a1205;
     --modal-grad:linear-gradient(160deg,#2a1f0a,#140e04);
     --gold-accent:#ffe566;
+    --panel:#2a1f0a; --panel-2:#1a1205;
+    --over-grad:linear-gradient(0deg,rgba(26,18,5,.96),rgba(26,18,5,.6) 60%,transparent);
+    --name-grad:linear-gradient(transparent,rgba(26,18,5,.92) 42%);
+    --star-opacity:1;
+    --vignette:radial-gradient(ellipse at center,transparent 38%,rgba(0,0,0,.55) 100%);
+    --frame-bg:linear-gradient(160deg,rgba(255,255,255,.04),rgba(0,0,0,.25));
+    --card-soft:linear-gradient(160deg,rgba(255,255,255,.04),rgba(0,0,0,.25));
+    --text-on-dark:#fff;
+    --shadow-soft:0 14px 40px rgba(0,0,0,.35);
   }
+
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   html,body{height:100%;}
@@ -112,6 +131,49 @@
   .links-row a:hover{background:color-mix(in srgb,var(--brand) 16%,transparent);color:#fff;}
 
 
+
+
+  /* paper/gold adaptive surfaces */
+  #stars{opacity:var(--star-opacity); transition:opacity .4s;}
+  .vignette{background:var(--vignette);}
+  .title{color:var(--text-on-dark);}
+  .counter b{color:var(--tx);}
+  .section-title,.f-cn,.m-cn,.faq-q,
+  .rule-card h3,.mech-card h4,.tip-card h4,.strat-card h4,
+  .racers-head h2{color:var(--text-on-dark);}
+  .frame{background:var(--frame-bg); box-shadow:none;}
+  .frame:hover{box-shadow:var(--shadow-soft);}
+  .f-name{background:var(--name-grad);}
+  .f-over{background:var(--over-grad);}
+  .f-over p{color:var(--tx);}
+  .rule-card,.mech-card,.tip-card,.strat-card,.faq-item{
+    background:var(--card-soft);
+  }
+  .mcard{background:var(--modal-grad);}
+  .m-off{color:var(--tx);}
+  .m-spk{color:var(--tx);}
+  .faq-side p,.faq-verdict p,.rule-card p,.mech-card p,.tip-card p,.strat-card p,.strat-card li{color:var(--tx);}
+  .fbtn.active{color:var(--chip-tx);}
+  [data-theme="paper"] .fbtn.active{color:#fff;}
+  [data-theme="paper"] .shoot{opacity:0 !important; animation:none !important;}
+  [data-theme="paper"] .eq span{opacity:.9;}
+  [data-theme="paper"] .f-chip{color:#fff;}
+  [data-theme="paper"] .m-chip{color:#fff;}
+  [data-theme="paper"] .iron-badge{color:#fff;}
+  [data-theme="paper"] .faq-badge{color:#fff;}
+  [data-theme="paper"] .float-top{color:#fff;}
+  [data-theme="paper"] .nav{border-bottom-width:2px;}
+  [data-theme="paper"] body{background:
+    linear-gradient(180deg,#f7f7f4 0%, #f4f4f1 40%, #efefe9 100%);
+  }
+  [data-theme="paper"] .wrap{ }
+  [data-theme="paper"] .hero .title{
+    font-weight:700; letter-spacing:.02em;
+  }
+  [data-theme="paper"] .frame{border-color:#ddd;}
+  [data-theme="paper"] .badge{background:#fff;}
+  [data-theme="paper"] .modal{background:rgba(244,244,241,.78);}
+  [data-theme="gold"] .f-chip{color:var(--chip-tx);}
 
   /* section back-to-top */
   .sec-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:4px;}
@@ -227,8 +289,8 @@
       <a href="#strategy" data-sec="strategy">策略</a>
     </div>
     <div class="nav-actions">
-      <button type="button" class="theme-toggle" id="themeToggle" title="切换 NEON / GOLD 主题" aria-label="切换主题">
-        <span>NEON</span>
+      <button type="button" class="theme-toggle" id="themeToggle" title="切换 PAPER / GOLD 主题" aria-label="切换主题">
+        <span>PAPER</span>
         <span class="theme-knob"><i></i></span>
         <b>GOLD</b>
       </button>
@@ -252,7 +314,7 @@
         <div class="badge"><b>4</b>轮决胜</div>
       </div>
       <div class="links-row" style="justify-content:center">
-        <a href="魔法运动员-策略深挖.md">策略深挖 MD</a>
+        <a href="魔法运动员-策略深挖.html">策略深挖 MD</a>
         <a href="魔法运动员-速查表.html">可打印速查表</a>
         <a href="#faq">模糊问题裁定</a>
         <a href="魔法运动员-角色卡牌图鉴.html">卡牌图鉴原版</a>
@@ -528,7 +590,7 @@
         </div>
         <a class="back-top" href="#top" title="返回页首，重新选择分区"><span>↑</span> 返回页首</a>
       </div>
-<p class="section-sub">更完整的编队、出场顺序与克制表见同目录 <code>魔法运动员-策略深挖.md</code>。</p>
+<p class="section-sub">更完整的编队、出场顺序与克制表见同目录 <code>魔法运动员-策略深挖.html</code>。</p>
       <div class="strat-grid">
         <div class="strat-card"><span class="strat-num">LEECH</span><h4>蹭步坐收</h4><p>靠全场事件前进。骰贩子改写重置规则，挪挪吃一切技能触发，吸盘贴车冲线。</p><ul><li>引擎：骰贩 + 挪挪 + 派对</li><li>反制：巨婴拆同格、少互动</li></ul></div>
         <div class="strat-card"><span class="strat-num">COPY</span><h4>复制预测</h4><p>山寨猫持续挂领先者技能；双胞胎吃上场冠军；军师赌收束。</p><ul><li>猫队先抢第一</li><li>冲突时对方技能优先</li></ul></div>
@@ -537,7 +599,7 @@
       </div>
       <div class="links-row">
         <a href="#faq">8 条官方裁定 FAQ</a>
-        <a href="魔法运动员-策略深挖.md">打开完整策略文档</a>
+        <a href="魔法运动员-策略深挖.html">打开完整策略文档</a>
         <a href="魔法运动员-速查表.html">打开打印速查表</a>
       </div>
     
@@ -546,7 +608,7 @@
       </div>
     </section>
 
-    <footer>MAGICAL ATHLETE · CHARACTER GALLERY · 36 RACERS · AGNES CMYK ART · BUILD 2026-07-15-v3-backtop</footer>
+    <footer>MAGICAL ATHLETE · CHARACTER GALLERY · 36 RACERS · AGNES CMYK ART · BUILD 2026-07-15-v4-paper</footer>
   </div>
 
   <div class="modal" id="modal">
@@ -569,14 +631,16 @@
   const TYPE_COLOR = {speed:'#ff5a4d',trap:'#a855f7',dice:'#3b82f6',leech:'#14b8a6',copy:'#f59e0b',social:'#ec4899',score:'#84cc16'};
   const TYPE_LABEL = {speed:'加速位移',trap:'干扰陷阱',dice:'骰子操控',leech:'蹭步坐收',copy:'复制预测',social:'互动社交',score:'得分赖皮'};
 
-  // theme
+  // theme: PAPER (cheatsheet light) default + GOLD
   (function(){
     const root=document.documentElement;
     const btn=document.getElementById('themeToggle');
-    const saved=localStorage.getItem('ma-theme');
-    if(saved==='gold'||saved==='neon') root.setAttribute('data-theme',saved);
+    let saved=localStorage.getItem('ma-theme');
+    if(saved==='neon') saved='paper'; // migrate old theme key
+    if(saved==='gold'||saved==='paper') root.setAttribute('data-theme',saved);
+    else root.setAttribute('data-theme','paper');
     btn.addEventListener('click',()=>{
-      const next=root.getAttribute('data-theme')==='gold'?'neon':'gold';
+      const next=root.getAttribute('data-theme')==='gold'?'paper':'gold';
       root.setAttribute('data-theme',next);
       localStorage.setItem('ma-theme',next);
     });

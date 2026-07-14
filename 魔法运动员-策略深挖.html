@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="魔法运动员 · 角色类型策略深挖"/>
+<title>魔法运动员 · 策略深挖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet"/>
+<style>
+  :root, [data-theme="paper"]{
+    --bg:#f4f4f1; --bg2:#ffffff; --brand:#111111; --accent:#2563eb;
+    --tx:#111111; --mut:#5b5b5b; --line:#d8d8d3;
+    --nav-bg:rgba(255,255,255,.94); --card:#fff; --code-bg:#f0f0eb;
+    --gold-accent:#b8860b; --chip:#111; --chip-tx:#fff;
+    --shadow:0 8px 28px rgba(0,0,0,.06);
+  }
+  [data-theme="gold"]{
+    --bg:#1a1205; --bg2:#241a0a; --brand:#daa520; --accent:#ffe566;
+    --tx:#fff8e7; --mut:rgba(255,248,231,.55); --line:rgba(218,165,32,.22);
+    --nav-bg:rgba(26,18,5,.92); --card:#2a1f0a; --code-bg:rgba(0,0,0,.25);
+    --gold-accent:#ffe566; --chip:#daa520; --chip-tx:#1a1205;
+    --shadow:0 8px 28px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    background:var(--bg);color:var(--tx);line-height:1.7;
+    min-height:100vh;-webkit-font-smoothing:antialiased;
+    transition:background .45s,color .45s;
+  }
+  .nav{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    gap:12px;padding:10px 18px;background:var(--nav-bg);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-brand{
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--brand);font-weight:700;text-decoration:none;white-space:nowrap;
+  }
+  .nav-links{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+  .nav-links a{
+    font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--mut);text-decoration:none;padding:7px 10px;border:1px solid transparent;transition:.2s;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--tx);border-color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,transparent)}
+  .theme-toggle{
+    display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.62rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;border:1px solid var(--line);
+    background:transparent;padding:6px 10px;border-radius:999px;user-select:none;
+  }
+  .theme-toggle:hover{border-color:var(--brand);color:var(--tx)}
+  .theme-knob{width:34px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--brand) 12%,transparent);border:1px solid var(--line);position:relative}
+  .theme-knob i{position:absolute;top:1px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--brand);transition:transform .3s}
+  [data-theme="gold"] .theme-knob i{transform:translateX(14px);background:var(--gold-accent)}
+  .theme-toggle b{color:var(--gold-accent);font-weight:700}
+
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px}
+  .hero{
+    background:var(--bg2);border:1px solid var(--line);border-bottom:3px solid var(--brand);
+    padding:28px 26px;box-shadow:var(--shadow);margin-bottom:22px;
+  }
+  .eyebrow{
+    display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:5px 10px;margin-bottom:14px;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:600;line-height:1.15;
+    color:var(--tx);margin-bottom:10px;
+  }
+  .sub{color:var(--mut);font-size:.95rem;max-width:62ch}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .toolbar a,.toolbar button{
+    font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+    border:1px solid var(--brand);background:var(--brand);color:var(--chip-tx);padding:9px 12px;text-decoration:none;cursor:pointer;
+  }
+  [data-theme="paper"] .toolbar a,[data-theme="paper"] .toolbar button{color:#fff}
+  .toolbar a.secondary,.toolbar button.secondary{background:transparent;color:var(--tx)}
+  .toc{
+    background:var(--bg2);border:1px solid var(--line);padding:16px 18px;margin-bottom:22px;box-shadow:var(--shadow);
+  }
+  .toc h2{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+  .toc ol{margin-left:18px;color:var(--tx);font-size:.9rem}
+  .toc a{color:var(--accent);text-decoration:none}
+  [data-theme="gold"] .toc a{color:var(--gold-accent)}
+  .toc a:hover{text-decoration:underline}
+
+  .doc-lead,.doc-sec{
+    background:var(--bg2);border:1px solid var(--line);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow);
+  }
+  .doc-sec{scroll-margin-top:72px}
+  .doc-sec h2{
+    font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;margin-bottom:14px;padding-bottom:10px;
+    border-bottom:2px solid var(--brand);color:var(--tx);
+  }
+  .doc-sec h3{font-size:1.02rem;margin:18px 0 8px;color:var(--tx)}
+  p{margin:0 0 12px;color:var(--tx);font-size:.95rem}
+  ul,ol{margin:0 0 12px 1.2rem;color:var(--tx);font-size:.95rem}
+  li{margin:4px 0}
+  blockquote{
+    border-left:3px solid var(--brand);background:color-mix(in srgb,var(--brand) 6%,var(--bg2));
+    padding:12px 14px;margin:0 0 14px;color:var(--mut);font-size:.92rem;
+  }
+  code{font-family:'JetBrains Mono',monospace;font-size:.84em;background:var(--code-bg);padding:1px 5px;border-radius:3px}
+  pre{background:var(--code-bg);border:1px solid var(--line);padding:14px;overflow:auto;margin:0 0 14px;font-size:.85rem}
+  pre code{background:transparent;padding:0}
+  hr.div{border:none;border-top:1px dashed var(--line);margin:8px 0 16px}
+  .table-wrap{overflow:auto;margin:0 0 14px;border:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--bg2)}
+  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:color-mix(in srgb,var(--brand) 8%,var(--bg2));font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  .sec-nav{display:flex;justify-content:flex-end;margin-top:8px}
+  .sec-nav a{
+    font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--mut);text-decoration:none;border:1px solid var(--line);padding:7px 10px;
+  }
+  .sec-nav a:hover{border-color:var(--brand);color:var(--tx)}
+  footer{
+    margin-top:28px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.66rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border-top:1px solid var(--line);padding-top:18px;
+  }
+  .float-top{
+    position:fixed;right:18px;bottom:22px;z-index:60;display:none;align-items:center;gap:6px;
+    font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;text-decoration:none;border:1px solid var(--brand);background:var(--brand);
+    padding:12px 14px;border-radius:999px;box-shadow:var(--shadow);
+  }
+  [data-theme="gold"] .float-top{color:#1a1205}
+  .float-top.show{display:inline-flex}
+  @media(max-width:720px){
+    .nav{flex-wrap:wrap;justify-content:center}
+    .hero,.doc-sec,.doc-lead,.toc{padding:16px}
+  }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">← Magical Athlete</a>
+    <div class="nav-links">
+      <a href="index.html">首页画廊</a>
+      <a href="index.html#faq">裁定 FAQ</a>
+      <a href="魔法运动员-速查表.html">打印速查表</a>
+      <a class="active" href="魔法运动员-策略深挖.html">策略深挖</a>
+    </div>
+    <button type="button" class="theme-toggle" id="themeToggle" title="切换 PAPER / GOLD">
+      <span>PAPER</span><span class="theme-knob"><i></i></span><b>GOLD</b>
+    </button>
+  </nav>
+
+  <div class="wrap" id="top">
+    <header class="hero">
+      <div class="eyebrow">Strategy Deep Dive</div>
+      <h1>魔法运动员 · 角色类型策略深挖</h1>
+      <p class="sub">组队、出场顺序、连锁与反制。UI 与主站统一：默认 PAPER（速查表浅色纸感），可切换 GOLD。</p>
+      <div class="toolbar">
+        <a href="index.html">← 返回首页</a>
+        <a class="secondary" href="魔法运动员-速查表.html">打开打印速查表</a>
+        <a class="secondary" href="index.html#faq">8 条官方裁定</a>
+      </div>
+    </header>
+
+    <nav class="toc" id="toc">
+      <h2>目录</h2>
+      <ol id="tocList"></ol>
+    </nav>
+
+    <article class="doc" id="doc">
+<div class="doc-lead"><blockquote>基于 <code>index.html</code> 内嵌 36 角色数据 + 规则/机制整理。<br/>目标：组队、出场顺序、连锁与反制。</blockquote>
+<hr class="div"/>
+</div>
+<section class="doc-sec" id="0-先记住的底层规则">
+<h2>0. 先记住的底层规则</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>概念</th><th>要点</th></tr></thead>
+<tbody>
+<tr><td>主要移动</td><td>每回合掷 1d6 前进；多数技能围绕它</td></tr>
+<tr><td>经过 Passing</td><td>A 从 B 后开始、在 B 前停下 → 算经过</td></tr>
+<tr><td>绊倒 Stumble</td><td>跳过<strong>下一次</strong>主要移动</td></tr>
+<tr><td><strong>铁律</strong></td><td>任何人都不会被击退到<strong>起点线之后</strong></td></tr>
+<tr><td>传送</td><td>放棋子到新格，<strong>不算移动</strong>，之后仍可主移动</td></tr>
+<tr><td>结算顺序</td><td>① 格子效果 → ② 当前玩家 → ③ 顺时针他人</td></tr>
+<tr><td>计分</td><td>4 场金银奖牌；越靠后场次通常越值钱 → <strong>王牌留后期</strong></td></tr>
+</tbody></table></div>
+<p>组队口诀：<strong>进攻 1 + 控制/干扰 1 + 蹭步或复制 1 + 灵活位 1</strong>。</p>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="1-加速位移-speed-6">
+<h2>1. 加速位移（Speed · 6）</h2>
+<p><strong>定位</strong>：自己能跑、抢线、制造位置差。</p>
+<div class="table-wrap"><table>
+<thead><tr><th>角色</th><th>关键词</th><th>何时强</th><th>风险</th></tr></thead>
+<tbody>
+<tr><td>飞艇</td><td>前半 +3 / 后半 -1</td><td>开局抢位、短赛道前半</td><td>后期疲软，别拖</td></tr>
+<tr><td>人字拖</td><td>不掷骰换位</td><td>抢领先者位置、救自己</td><td>换位后可能站在陷阱格</td></tr>
+<tr><td>兔子</td><td>+2，独一领先则跳过</td><td>有人陪跑时猛冲</td><td>独自第一会「摸鱼」</td></tr>
+<tr><td>跳跳蟾</td><td>跳过有人的格（不计步）</td><td>人堆多、拥堵赛道</td><td>空旷时就是普通人</td></tr>
+<tr><td>大长腿</td><td>可选固定走 5</td><td>稳输出、冲线算步</td><td>无爆发、可被预判</td></tr>
+<tr><td>火箭科学家</td><td>可 2× 点数后绊倒</td><td>决胜冲线、一波定乾坤</td><td>失败会空一回合</td></tr>
+</tbody></table></div>
+<p><strong>流派</strong>：</p>
+<ul>
+<li><strong>开局冲刺</strong>：飞艇 + 大长腿（稳定 + 爆发互补）</li>
+<li><strong>位置盗贼</strong>：人字拖 + 跳跳蟾（换位/踩头过河）</li>
+<li><strong>豪赌冲线</strong>：火箭科学家留给第 3/4 场</li>
+</ul>
+<p><strong>反制</strong>：较真怪（精确冲线）、香蕉/芭芭雅嘎（绊倒）、黏黏怪（全局 -1 格）。</p>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="2-干扰陷阱-trap-8">
+<h2>2. 干扰陷阱（Trap · 8）</h2>
+<p><strong>定位</strong>：让别人难受——减速、绊倒、击退、禁同格、吞人。</p>
+<div class="table-wrap"><table>
+<thead><tr><th>角色</th><th>机制精华</th><th>搭配思路</th></tr></thead>
+<tbody>
+<tr><td>芭芭雅嘎</td><td>同格者绊倒</td><td>站在关键格「守门」</td></tr>
+<tr><td>半人马</td><td>经过者退 2（不过起点）</td><td>中段卡位；注意铁律</td></tr>
+<tr><td>香蕉</td><td>经过者绊倒</td><td>与芭芭雅嘎一「经过」一「同格」</td></tr>
+<tr><td>黏黏怪</td><td>他人主移动 -1 <strong>格</strong></td><td>全局减速，利蹭步队</td></tr>
+<tr><td>巨婴</td><td>禁同格（除起点），挤到身后</td><td>堵路；注意优先级高于山寨猫</td></tr>
+<tr><td>催眠师</td><td>主移动前拉 1 人到自己格</td><td>拉人进陷阱/给派对咖聚怪</td></tr>
+<tr><td>血盆大口</td><td>停格有人则淘汰</td><td>高风险核武；可能让比赛无第二名</td></tr>
+<tr><td>较真怪</td><td>他人必须<strong>精确</strong>冲线</td><td>克制大步数、决斗冲线</td></tr>
+</tbody></table></div>
+<p><strong>流派</strong>：</p>
+<ul>
+<li><strong>守门双煞</strong>：香蕉 + 芭芭雅嘎（经过/同格双触发）</li>
+<li><strong>全局减速</strong>：黏黏怪 + 尺蠖/毒舌（别人慢、你蹭）</li>
+<li><strong>聚怪绞肉</strong>：催眠师 + 派对咖 + 血盆大口（慎用吞人）</li>
+</ul>
+<p><strong>铁律提醒</strong>：半人马击退不能越过起点；巨婴挤人「放到身后」不算移动。</p>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="3-骰子操控-dice-3">
+<h2>3. 骰子操控（Dice · 3）</h2>
+<p><strong>定位</strong>：改写自己的骰运，稳定或爆发。</p>
+<div class="table-wrap"><table>
+<thead><tr><th>角色</th><th>技能</th><th>用法</th></tr></thead>
+<tbody>
+<tr><td>炼金术士</td><td>掷 1/2 可改走 4</td><td>抬升下限，适合稳健场</td></tr>
+<tr><td>天才</td><td>猜自己点数，对了再动一轮</td><td>高风险额外回合；后期很强</td></tr>
+<tr><td>魔术师</td><td>主移动最多重掷 2 次</td><td>万金油；配合骰贩子更夸张</td></tr>
+</tbody></table></div>
+<p><strong>流派</strong>：魔术师几乎永远不亏；天才适合第 4 场；炼金术士抗低点。</p>
+<p><strong>联动</strong>：骰贩子在场 → 全场可重置 1 次 → 魔术师「重置 + 重掷」上限拉满；挪挪会蹭每一次重置。</p>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="4-蹭步坐收-leech-8-深挖">
+<h2>4. 蹭步坐收（Leech · 8）★ 深挖</h2>
+<p><strong>定位</strong>：不靠自己掷得好，靠<strong>全场事件</strong>前进。场上互动越多越赚。</p>
+<h3>4.1 角色分层</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>层</th><th>角色</th><th>触发源</th><th>强度感觉</th></tr></thead>
+<tbody>
+<tr><td>全局规则改写</td><td>骰贩子</td><td>每人每回合可重置主移动骰</td><td>改变游戏底层</td></tr>
+<tr><td>事件寄生</td><td>挪挪</td><td>任意技能触发 → 我 +1</td><td>技能越多赚越多</td></tr>
+<tr><td>同格寄生</td><td>吸盘鱼</td><td>同格者移动 → 跟到新格</td><td>可贴车冲线</td></tr>
+<tr><td>点数寄生</td><td>跟班 / 尺蠖</td><td>别人掷 6 / 掷 1</td><td>两端吃骰</td></tr>
+<tr><td>落后/停滞</td><td>啦啦队长 / 毒舌</td><td>垫底鼓励 / 回合几乎不动</td><td>场面胶着时强</td></tr>
+<tr><td>顺序操控</td><td>船长</td><td>有人掷 1 → 我变成下一个行动</td><td>打乱节奏</td></tr>
+</tbody></table></div>
+<h3>4.2 经典组合</h3>
+<ol><li><strong>骰贩子引擎</strong></li></ol>
+<p>骰贩子 + 挪挪 + 魔术师（己方）</p>
+<p>- 全场重置频繁 → 挪挪每重置蹭 1</p>
+<p>- 自己主移动质量也上升</p>
+<ol><li><strong>吸盘贴车</strong></li></ol>
+<p>吸盘鱼 + 派对咖/教练（制造同格）</p>
+<p>- 派对把人拉近 → 吸盘跟强者冲线</p>
+<p>- 注意：巨婴会拆同格</p>
+<ol><li><strong>骰两端</strong></li></ol>
+<p>跟班（吃 6）+ 尺蠖（吃 1）+ 船长（掷 1 插队）</p>
+<p>- 1 和 6 都变成你的资源</p>
+<ol><li><strong>垫底奶妈</strong></li></ol>
+<p>啦啦队长：鼓励最后一名 +2，自己 +1；若自己垫底则 2+1=3</p>
+<h3>4.3 何时选蹭步</h3>
+<ul>
+<li>对手技能花、重置多、同格多 → <strong>优先挪挪/吸盘/骰贩</strong></li>
+<li>对手纯加速闷头跑、少互动 → 蹭步变弱，改选 Speed/Copy</li>
+</ul>
+<h3>4.4 反制蹭步</h3>
+<ul>
+<li><strong>巨婴</strong>：拆同格，克吸盘/教练/派对</li>
+<li><strong>较真怪</strong>：精确冲线，克「蹭着过线」的模糊步数（仍要算清）</li>
+<li><strong>少技能队</strong>：减少挪挪触发源</li>
+<li><strong>不要无脑重置</strong>：骰贩子在场时，每次重置都在喂挪挪</li>
+</ul>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="5-复制预测-copy-4-深挖">
+<h2>5. 复制预测（Copy · 4）★ 深挖</h2>
+<p><strong>定位</strong>：偷别人的答案，或赌结果。</p>
+<div class="table-wrap"><table>
+<thead><tr><th>角色</th><th>机制</th><th>核心技巧</th></tr></thead>
+<tbody>
+<tr><td>山寨猫</td><td><strong>持续</strong>拥有当前领先者技能</td><td>必须争第一；并列自选一个</td></tr>
+<tr><td>神秘蛋</td><td>赛前抽 3 选 1 技能</td><td>棋子仍是蛋；可拿赛前技</td></tr>
+<tr><td>军师</td><td>第一回合前赌谁赢；对则立刻结束</td><td>可赌自己 → 可能包揽金银</td></tr>
+<tr><td>双胞胎</td><td>复制<strong>上一场</strong>胜者技能</td><td>第 2–4 场吃红利</td></tr>
+</tbody></table></div>
+<h3>5.1 山寨猫细则</h3>
+<ul>
+<li>技能是<strong>持续的</strong>，不只在自己回合。</li>
+<li>与被模仿者冲突时：<strong>对方优先</strong>（如巨婴禁同格，猫也挤不开巨婴逻辑）。</li>
+<li>策略：开局用加速/催眠抢第一 → 整场挂最强被动。</li>
+<li>克制：让猫当不了第一；或领先者用「对自己有害/无用」的技能（如兔子独一领先跳过——猫若并列则可选他人）。</li>
+</ul>
+<h3>5.2 蛋与双胞胎</h3>
+<ul>
+<li>都是「技能换皮、棋子不变」。</li>
+<li>双胞胎依赖你<strong>上一场真的有人夺冠且技能适合本赛道</strong>。</li>
+<li>蛋适合信息差：抽到强控/强速再决定本场打法。</li>
+</ul>
+<h3>5.3 军师赌局</h3>
+<ul>
+<li>适合短赛、局面一面倒时「提前收束」。</li>
+<li>赌自己赢且猜中 → 规则允许同时吃第一+第二相关收益（以官方裁定为准，图鉴文案支持「可同时赢下第一和第二」的表述）。</li>
+<li>反制：搅局、双强对峙，让「谁赢」不可预测。</li>
+</ul>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="6-互动社交-social-5">
+<h2>6. 互动社交（Social · 5）</h2>
+<p><strong>定位</strong>：同格、聚怪、决斗、成双触发。</p>
+<div class="table-wrap"><table>
+<thead><tr><th>角色</th><th>一句话</th></tr></thead>
+<tbody>
+<tr><td>教练</td><td>同格全员主移动 +1（含自己）</td></tr>
+<tr><td>决斗者</td><td>同格可喊决斗，比骰高者 +2，平局你赢；可多轮、可非己回合</td></tr>
+<tr><td>派对咖</td><td>主移动前全员向你靠 1；同格每人给你主移动 +1</td></tr>
+<tr><td>浪漫者</td><td>有人停到「恰好两人」的格 → 你 +2；吸盘同移可触发两次</td></tr>
+<tr><td>电灯泡</td><td>主移动前可传到「恰好两人」格，再主移动</td></tr>
+</tbody></table></div>
+<p><strong>连锁核心：派对咖</strong></p>
+<pre><code>派对聚怪 → 教练 +1 / 吸盘跟车 / 决斗开打
+         → 浪漫看「成双」吃步
+         → 挪挪吃技能触发
+         → 催眠师再拉人进堆</code></pre>
+<p><strong>注意</strong>：巨婴进派对堆会把同格人挤到身后，连锁可能「炸堆」。</p>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="7-得分赖皮-score-2">
+<h2>7. 得分赖皮（Score · 2）</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>角色</th><th>机制</th><th>策略</th></tr></thead>
+<tbody>
+<tr><td>可爱废柴</td><td>独一垫底 → 主移动前拿 1 分筹码</td><td>故意垫底刷分；别让别人并列垫底</td></tr>
+<tr><td>西西弗斯</td><td>赛前 4 筹码；掷 6 回起点并丢 1 筹码</td><td>用筹码换「存在感」；6 太多会破产式丢分</td></tr>
+</tbody></table></div>
+<p><strong>定位</strong>：不是每场都要冲线，而是<strong>奖牌外资源</strong>与搅局。适合多场总分制里的「保险分」。</p>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="8-推荐编队模板">
+<h2>8. 推荐编队模板</h2>
+<h3>A. 蹭步发动机</h3>
+<p>骰贩子 + 挪挪 + 派对咖 + 魔术师</p>
+<ul>
+<li>重置喂挪挪，聚怪喂派对/吸盘（若把魔术师换成吸盘更贴车）</li>
+</ul>
+<h3>B. 复制统治者</h3>
+<p>山寨猫 + 飞艇/催眠师 + 香蕉 + 大长腿</p>
+<ul>
+<li>抢第一挂技能，陷阱护航</li>
+</ul>
+<h3>C. 控制绞肉</h3>
+<p>较真怪 + 香蕉 + 芭芭雅嘎 + 黏黏怪</p>
+<ul>
+<li>精确冲线 + 双绊倒 + 全局减速</li>
+</ul>
+<h3>D. 后期王牌包</h3>
+<p>火箭科学家 + 天才 + 双胞胎 + 军师</p>
+<ul>
+<li>第 3–4 场爆发与赌局</li>
+</ul>
+<h3>E. 均衡新手向</h3>
+<p>大长腿 + 香蕉 + 魔术师 + 啦啦队长</p>
+<ul>
+<li>好理解、容错高</li>
+</ul>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="9-出场顺序建议">
+<h2>9. 出场顺序建议</h2>
+<ol><li><strong>第 1 场</strong>：试探/稳定输出（大长腿、炼金、啦啦）——摸对手阵容</li><li><strong>第 2 场</strong>：中等强度控制或复制（双胞胎开始有目标）</li><li><strong>第 3 场</strong>：强互动/全局（骰贩、派对、黏黏）</li><li><strong>第 4 场</strong>：最高爆发或赌局（火箭、天才、军师、山寨猫）</li></ol>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="10-优先级速查-遇到谁先处理">
+<h2>10. 优先级速查（遇到谁先处理）</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>场上出现</th><th>优先应对</th></tr></thead>
+<tbody>
+<tr><td>骰贩子</td><td>少重置；清挪挪；或自己也带挪挪对刷</td></tr>
+<tr><td>山寨猫</td><td>别让他第一；用巨婴等「冲突技」恶心他</td></tr>
+<tr><td>派对咖</td><td>巨婴拆堆 / 血盆吓阻 / 别跟他同格</td></tr>
+<tr><td>较真怪</td><td>算清精确步数；大长腿 5 格很好用</td></tr>
+<tr><td>血盆大口</td><td>别停他格；催眠别乱拉</td></tr>
+<tr><td>吸盘鱼</td><td>巨婴 / 少同格 / 自己别当火车头</td></tr>
+</tbody></table></div>
+<hr class="div"/>
+
+</section>
+<section class="doc-sec" id="11-类型克制简图">
+<h2>11. 类型克制简图</h2>
+<pre><code>加速  --被--&gt;  陷阱（绊/退/精确线）
+陷阱  --被--&gt;  传送绕开、精确算步、少经过
+骰控  --被--&gt;  黏黏降格数、绊倒浪费重掷
+蹭步  --被--&gt;  低互动、巨婴拆同格
+复制  --被--&gt;  争夺第一、技能冲突优先
+社交  --被--&gt;  巨婴、吞人、分散站位
+得分  --被--&gt;  不给独一垫底、逼西西弗斯多掷 6</code></pre>
+<hr class="div"/>
+<p><em>文档与图鉴数据同步自本目录主站；细则以官方规则书为准。</em></p>
+</section>
+    </article>
+
+    <footer>MAGICAL ATHLETE · STRATEGY · PAPER / GOLD · BUILD 2026-07-15</footer>
+  </div>
+
+  <a class="float-top" id="floatTop" href="#top">↑ 页首</a>
+
+<script>
+(function(){
+  const root=document.documentElement;
+  const btn=document.getElementById('themeToggle');
+  let saved=localStorage.getItem('ma-theme');
+  if(saved==='neon') saved='paper';
+  if(saved==='gold'||saved==='paper') root.setAttribute('data-theme', saved);
+  else root.setAttribute('data-theme','paper');
+  btn.addEventListener('click',()=>{
+    const next=root.getAttribute('data-theme')==='gold'?'paper':'gold';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('ma-theme', next);
+  });
+
+  // TOC from h2
+  const list=document.getElementById('tocList');
+  document.querySelectorAll('.doc-sec h2').forEach((h,i)=>{
+    if(!h.id){
+      const sec=h.closest('.doc-sec');
+      const id=sec && sec.id ? sec.id : ('sec-'+i);
+      h.id=id+'-title';
+    }
+    const sec=h.closest('.doc-sec');
+    const href='#'+(sec?sec.id:h.id);
+    const li=document.createElement('li');
+    const a=document.createElement('a');
+    a.href=href; a.textContent=h.textContent;
+    li.appendChild(a); list.appendChild(li);
+    // per-section back top
+    const nav=document.createElement('div');
+    nav.className='sec-nav';
+    nav.innerHTML='<a href="#top">↑ 返回页首</a>';
+    sec.appendChild(nav);
+  });
+
+  const ft=document.getElementById('floatTop');
+  const onScroll=()=>ft.classList.toggle('show', window.scrollY>420);
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>

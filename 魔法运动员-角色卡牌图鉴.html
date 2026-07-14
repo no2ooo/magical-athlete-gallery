@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>魔法运动员 · 36 角色卡牌图鉴</title>
+<style>
+:root{--bg:#0a0612;--card:#140d24;--card2:#1c1233;--line:rgba(255,255,255,.08);--tx:#ece7f5;--tx2:#a99fc4;--gold:#ffd36b;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'PingFang SC','Microsoft YaHei',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(900px 500px at 12% -5%,rgba(168,85,247,.22),transparent 60%),
+  radial-gradient(800px 500px at 100% 0%,rgba(59,130,246,.18),transparent 55%),
+  radial-gradient(700px 600px at 50% 120%,rgba(236,72,153,.14),transparent 60%);
+  pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 20px 80px}
+/* Hero */
+.hero{text-align:center;padding:64px 20px 40px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:3px;color:var(--gold);border:1px solid rgba(255,211,107,.35);padding:6px 16px;border-radius:999px;background:rgba(255,211,107,.06);margin-bottom:22px}
+h1{font-size:clamp(32px,6vw,58px);font-weight:900;line-height:1.05;letter-spacing:1px;
+  background:linear-gradient(135deg,#fff 0%,#e9d5ff 40%,#a5b4fc 70%,#fbcfe8 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 4px 30px rgba(168,85,247,.4))}
+.sub{margin-top:16px;font-size:16px;color:var(--tx2);max-width:640px;margin-left:auto;margin-right:auto;line-height:1.7}
+.stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.stat{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:14px 22px;backdrop-filter:blur(8px)}
+.stat b{display:block;font-size:26px;font-weight:800;background:linear-gradient(135deg,#ffd36b,#ff8a3d);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat span{font-size:12px;color:var(--tx2);letter-spacing:1px}
+/* how to play */
+.howto{margin:8px auto 34px;max-width:900px;background:linear-gradient(135deg,rgba(28,18,51,.7),rgba(20,13,36,.7));border:1px solid var(--line);border-radius:18px;padding:22px 26px;backdrop-filter:blur(10px)}
+.howto h3{font-size:15px;color:var(--gold);margin-bottom:14px;letter-spacing:1px}
+.flow{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+.step{flex:1;min-width:150px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.step .n{font-size:11px;color:var(--tx2);letter-spacing:2px}
+.step .t{font-size:14px;margin-top:4px;font-weight:600}
+.step .d{font-size:12px;color:var(--tx2);margin-top:5px;line-height:1.5}
+/* filters */
+.filters{position:sticky;top:0;z-index:20;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding:16px 0;margin-bottom:8px;background:linear-gradient(var(--bg),rgba(10,6,18,.85) 70%,transparent);backdrop-filter:blur(6px)}
+.fbtn{--c1:#8b7bd8;cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--tx2);font-size:13px;font-weight:600;padding:9px 16px;border-radius:999px;transition:.2s;display:inline-flex;align-items:center;gap:7px;font-family:inherit}
+.fbtn span{font-size:11px;background:rgba(255,255,255,.1);padding:1px 8px;border-radius:999px}
+.fbtn:hover{color:var(--tx);border-color:var(--c1)}
+.fbtn.active{color:#fff;border-color:var(--c1);background:color-mix(in srgb,var(--c1) 22%,transparent);box-shadow:0 0 20px color-mix(in srgb,var(--c1) 35%,transparent)}
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{position:relative;border-radius:20px;transition:transform .25s,opacity .3s}
+.card.hide{display:none}
+.card-glow{position:absolute;inset:-1px;border-radius:20px;background:linear-gradient(135deg,var(--c1),var(--c2));opacity:.5;filter:blur(0);transition:opacity .25s}
+.card-inner{position:relative;background:linear-gradient(165deg,var(--card2),var(--card));border-radius:19px;padding:20px;height:100%;overflow:hidden}
+.card-inner::before{content:'';position:absolute;top:-40%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);pointer-events:none}
+.card:hover{transform:translateY(-6px)}
+.card:hover .card-glow{opacity:.9}
+.card-top{display:flex;align-items:center;gap:13px;margin-bottom:16px}
+.avatar{width:56px;height:56px;flex:none;border-radius:15px;display:grid;place-items:center;font-size:30px;background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 30%,#1c1233),color-mix(in srgb,var(--c2) 24%,#140d24));border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);box-shadow:0 6px 18px color-mix(in srgb,var(--c1) 25%,transparent)}
+.name-box{flex:1;min-width:0}
+.cn-name{font-size:20px;font-weight:800;letter-spacing:.5px}
+.en-name{font-size:12px;color:var(--tx2);letter-spacing:1px;margin-top:2px}
+.type-chip{flex:none;font-size:11px;font-weight:700;color:#fff;padding:4px 10px;border-radius:8px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 3px 10px color-mix(in srgb,var(--c1) 40%,transparent)}
+.kw-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:10px;border:1px dashed color-mix(in srgb,var(--c1) 55%,transparent);background:color-mix(in srgb,var(--c1) 10%,transparent);margin-bottom:15px}
+.kw-en{font-size:12px;font-weight:800;letter-spacing:1.5px;color:color-mix(in srgb,var(--c2) 60%,#fff)}
+.kw-cn{font-size:12px;color:var(--tx2);padding-left:8px;border-left:1px solid var(--line)}
+.sec{margin-top:12px}
+.sec-label{font-size:12px;font-weight:700;color:var(--tx2);letter-spacing:1px;margin-bottom:6px}
+.official{font-size:13px;line-height:1.65;color:#cfc6e6;background:rgba(0,0,0,.22);border-radius:10px;padding:9px 12px;border-left:3px solid color-mix(in srgb,var(--c1) 60%,transparent)}
+.spoken{font-size:14px;line-height:1.72;color:var(--tx)}
+/* footer */
+.footer{margin-top:60px;text-align:center;color:var(--tx2);font-size:13px;line-height:1.9;border-top:1px solid var(--line);padding-top:30px}
+.footer a{color:var(--gold);text-decoration:none}
+.tag-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.tag-row span{font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.hero{padding-top:40px}.type-chip{display:none}}
+
+/* top nav polish */
+.guide-topnav{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:12px 16px;margin:0 -20px 8px;background:rgba(10,6,18,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.guide-topnav .brand{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--gold);text-decoration:none}
+.guide-topnav .links{display:flex;flex-wrap:wrap;gap:8px}
+.guide-topnav a.btn{font-size:12px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);color:var(--tx2);text-decoration:none;background:rgba(255,255,255,.04)}
+.guide-topnav a.btn:hover{color:#fff;border-color:var(--gold)}
+.guide-topnav a.btn.primary{background:linear-gradient(135deg,rgba(255,211,107,.2),rgba(168,85,247,.15));color:var(--gold);border-color:rgba(255,211,107,.35)}
+.guide-banner{margin:8px auto 20px;max-width:900px;padding:14px 18px;border-radius:14px;border:1px solid rgba(255,211,107,.25);background:linear-gradient(135deg,rgba(255,211,107,.08),rgba(168,85,247,.08));font-size:13px;color:var(--tx2);line-height:1.7}
+.guide-banner b{color:var(--gold)}
+.guide-banner a{color:#c4b5fd;text-decoration:none}
+.guide-banner a:hover{text-decoration:underline}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="guide-topnav">
+  <a class="brand" href="魔法运动员-cmyk画廊.html">← MAGICAL ATHLETE</a>
+  <div class="links">
+    <a class="btn primary" href="魔法运动员-cmyk画廊.html">CMYK 画廊</a>
+    <a class="btn" href="魔法运动员-cmyk画廊.html#faq">模糊问题裁定</a>
+    <a class="btn" href="魔法运动员-速查表.html">打印速查表</a>
+    <a class="btn" href="魔法运动员-策略深挖.md">策略深挖</a>
+  </div>
+</div>
+
+  <div class="hero">
+    <div class="eyebrow">🏆 MAGICAL ATHLETE · 全 36 角色</div>
+    <h1>魔法运动员 · 角色卡牌图鉴</h1>
+    <p class="sub">奇幻大陆四年一度的魔法竞速大赛。36 名选手各怀“游戏破坏级”奇葩异能，掷骰前进、互相搅局——被戏称为「技能飞行棋」。下面把每个人的技能<b style="color:#ffd36b">用大白话讲透</b>。</p>
+    <div class="stats">
+      <div class="stat"><b>36</b><span>奇葩选手</span></div>
+      <div class="stat"><b>2–6</b><span>人游玩</span></div>
+      <div class="stat"><b>~30</b><span>分钟一局</span></div>
+      <div class="stat"><b>4</b><span>轮赛决胜</span></div>
+    </div>
+  </div>
+
+
+  <div class="guide-banner">
+    这是<strong>卡牌图鉴原版</strong>：emoji 卡面 + 官方技能 + 大白话解释，适合快速扫技能。
+    精美插画与完整规则/机制请看 <a href="魔法运动员-cmyk画廊.html">CMYK 角色画廊</a>；
+    半人马连超、挪挪连锁、重掷回档等争议见 <a href="魔法运动员-cmyk画廊.html#faq"><b>8 条官方裁定 FAQ</b></a>。
+  </div>
+
+  <div class="howto">
+    <h3>🎮 30 秒看懂怎么玩</h3>
+    <div class="flow">
+      <div class="step"><div class="n">STEP 1</div><div class="t">蛇形轮抽</div><div class="d">每人抽 4 名选手组队，整局就用这 4 个。</div></div>
+      <div class="step"><div class="n">STEP 2</div><div class="t">每场派 1 人</div><div class="d">4 场比赛各派 1 人上场，一人只能用一次。</div></div>
+      <div class="step"><div class="n">STEP 3</div><div class="t">掷骰前进</div><div class="d">掷 1 颗骰走对应步数（主移动），触发各种技能。</div></div>
+      <div class="step"><div class="n">STEP 4</div><div class="t">第 2 名冲线</div><div class="d">第 2 人过终点比赛立即结束，金银积分到手。</div></div>
+      <div class="step"><div class="n">STEP 5</div><div class="t">4 场比总分</div><div class="d">越靠后的比赛积分越大，留王牌到后期更划算。</div></div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="fbtn active" data-f="all">全部 <span>36</span></button><button class="fbtn" data-f="speed" style="--c1:#ff5a4d">加速位移 <span>6</span></button><button class="fbtn" data-f="trap" style="--c1:#a855f7">干扰陷阱 <span>8</span></button><button class="fbtn" data-f="dice" style="--c1:#3b82f6">骰子操控 <span>3</span></button><button class="fbtn" data-f="leech" style="--c1:#14b8a6">蹭步坐收 <span>8</span></button><button class="fbtn" data-f="copy" style="--c1:#f59e0b">复制预测 <span>4</span></button><button class="fbtn" data-f="social" style="--c1:#ec4899">互动社交 <span>5</span></button><button class="fbtn" data-f="score" style="--c1:#84cc16">得分赖皮 <span>2</span></button>
+  </div>
+
+  <div class="grid">
+    
+    <div class="card" data-type="speed">
+      <div class="card-glow" style="--c1:#ff5a4d;--c2:#ff8a3d"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ff5a4d;--c2:#ff8a3d">🎈</div>
+          <div class="name-box">
+            <div class="cn-name">飞艇</div>
+            <div class="en-name">Blimp</div>
+          </div>
+          <div class="type-chip" style="--c1:#ff5a4d;--c2:#ff8a3d">加速位移</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ff5a4d;--c2:#ff8a3d">
+          <span class="kw-en">BLOW IT</span><span class="kw-cn">冲劲</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">前半程（第二个弯道前）开始回合时主移动 +3；到了后半程反而 -1。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">标准的“虎头蛇尾”选手——起跑猛如虎冲 +3，跑到后半段就泄气 -1，适合抢开局、不适合拖后期。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="speed">
+      <div class="card-glow" style="--c1:#ff5a4d;--c2:#ff8a3d"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ff5a4d;--c2:#ff8a3d">🩴</div>
+          <div class="name-box">
+            <div class="cn-name">人字拖</div>
+            <div class="en-name">Flip Flop</div>
+          </div>
+          <div class="type-chip" style="--c1:#ff5a4d;--c2:#ff8a3d">加速位移</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ff5a4d;--c2:#ff8a3d">
+          <span class="kw-en">FLOP FLIP</span><span class="kw-cn">瞬间换位</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">我可以不掷骰，直接与另一名选手交换位置（属瞬移，不算移动）。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">不想掷骰？直接跟别人瞬间换位，他在前面我就把他的好位置抢过来。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="speed">
+      <div class="card-glow" style="--c1:#ff5a4d;--c2:#ff8a3d"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ff5a4d;--c2:#ff8a3d">🐇</div>
+          <div class="name-box">
+            <div class="cn-name">兔子</div>
+            <div class="en-name">Hare</div>
+          </div>
+          <div class="type-chip" style="--c1:#ff5a4d;--c2:#ff8a3d">加速位移</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ff5a4d;--c2:#ff8a3d">
+          <span class="kw-en">HUBRIS</span><span class="kw-cn">骄兵必败</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动 +2；但回合开始时若独自领跑，则跳过这次主移动。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">跑得快 +2，可一旦骄傲地独自领先，就得意忘形原地发呆——龟兔赛跑本兔。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="speed">
+      <div class="card-glow" style="--c1:#ff5a4d;--c2:#ff8a3d"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ff5a4d;--c2:#ff8a3d">🐸</div>
+          <div class="name-box">
+            <div class="cn-name">跳跳蟾</div>
+            <div class="en-name">Leaptoad</div>
+          </div>
+          <div class="type-chip" style="--c1:#ff5a4d;--c2:#ff8a3d">加速位移</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ff5a4d;--c2:#ff8a3d">
+          <span class="kw-en">JUMPFROG</span><span class="kw-cn">踩头过河</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">移动时，有其他选手的格子直接跳过、不计入步数。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">踩着别人的头过河，有人的格子直接蹦过去，越挤越省步、人堆里穿花。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="speed">
+      <div class="card-glow" style="--c1:#ff5a4d;--c2:#ff8a3d"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ff5a4d;--c2:#ff8a3d">🦵</div>
+          <div class="name-box">
+            <div class="cn-name">大长腿</div>
+            <div class="en-name">Legs</div>
+          </div>
+          <div class="type-chip" style="--c1:#ff5a4d;--c2:#ff8a3d">加速位移</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ff5a4d;--c2:#ff8a3d">
+          <span class="kw-en">JOG</span><span class="kw-cn">稳定输出</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">可以不掷骰，直接固定移动 5。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">不看运气，抬腿就是稳稳 5 步。（注意：这算主移动，会被减速和加成影响。）</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="speed">
+      <div class="card-glow" style="--c1:#ff5a4d;--c2:#ff8a3d"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ff5a4d;--c2:#ff8a3d">🚀</div>
+          <div class="name-box">
+            <div class="cn-name">火箭科学家</div>
+            <div class="en-name">Rocket Scientist</div>
+          </div>
+          <div class="type-chip" style="--c1:#ff5a4d;--c2:#ff8a3d">加速位移</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ff5a4d;--c2:#ff8a3d">
+          <span class="kw-en">KABLOOEY</span><span class="kw-cn">一键加速</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动可选择走两倍点数；这样做后移动完就摔倒。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">一键点火跑两倍距离，代价是冲完直接趴窝一回合——要命的赌命加速。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="trap">
+      <div class="card-glow" style="--c1:#a855f7;--c2:#7c3aed"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#a855f7;--c2:#7c3aed">🏚️</div>
+          <div class="name-box">
+            <div class="cn-name">芭芭雅嘎</div>
+            <div class="en-name">Baba Yaga</div>
+          </div>
+          <div class="type-chip" style="--c1:#a855f7;--c2:#7c3aed">干扰陷阱</div>
+        </div>
+        <div class="kw-badge" style="--c1:#a855f7;--c2:#7c3aed">
+          <span class="kw-en">LEG IT</span><span class="kw-cn">鸡脚小屋</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">谁停到我的格子上、或我停到别人格子上，那名选手就摔倒。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">会走路的鸡脚魔女小屋，谁敢跟我挤一格谁就绊个跟头，下回合别想动。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="trap">
+      <div class="card-glow" style="--c1:#a855f7;--c2:#7c3aed"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#a855f7;--c2:#7c3aed">🐴</div>
+          <div class="name-box">
+            <div class="cn-name">半人马</div>
+            <div class="en-name">Centaur</div>
+          </div>
+          <div class="type-chip" style="--c1:#a855f7;--c2:#7c3aed">干扰陷阱</div>
+        </div>
+        <div class="kw-badge" style="--c1:#a855f7;--c2:#7c3aed">
+          <span class="kw-en">HOOFWHACK</span><span class="kw-cn">尥蹶子</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">我超过一名选手时，那名选手后退 2 步（最多退到起点）。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">一边超车一边尥蹶子踹人，被我超过的倒霉蛋直接倒退 2 格。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="trap">
+      <div class="card-glow" style="--c1:#a855f7;--c2:#7c3aed"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#a855f7;--c2:#7c3aed">🍌</div>
+          <div class="name-box">
+            <div class="cn-name">香蕉</div>
+            <div class="en-name">Banana</div>
+          </div>
+          <div class="type-chip" style="--c1:#a855f7;--c2:#7c3aed">干扰陷阱</div>
+        </div>
+        <div class="kw-badge" style="--c1:#a855f7;--c2:#7c3aed">
+          <span class="kw-en">THE SLIP</span><span class="kw-cn">香蕉皮</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">任何选手经过我时，就会摔倒（跳过下次主移动）。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">经典喜剧香蕉皮，从我身上路过的人全给我滑倒，下回合掷都不用掷。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="trap">
+      <div class="card-glow" style="--c1:#a855f7;--c2:#7c3aed"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#a855f7;--c2:#7c3aed">🟢</div>
+          <div class="name-box">
+            <div class="cn-name">黏黏怪</div>
+            <div class="en-name">Gunk</div>
+          </div>
+          <div class="type-chip" style="--c1:#a855f7;--c2:#7c3aed">干扰陷阱</div>
+        </div>
+        <div class="kw-badge" style="--c1:#a855f7;--c2:#7c3aed">
+          <span class="kw-en">GOOP 'EM</span><span class="kw-cn">全场减速</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">其他所有选手主移动 -1。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">移动的减速带，除我以外人人主移动 -1，全场跟着你一起慢。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="trap">
+      <div class="card-glow" style="--c1:#a855f7;--c2:#7c3aed"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#a855f7;--c2:#7c3aed">👶</div>
+          <div class="name-box">
+            <div class="cn-name">巨婴</div>
+            <div class="en-name">Huge Baby</div>
+          </div>
+          <div class="type-chip" style="--c1:#a855f7;--c2:#7c3aed">干扰陷阱</div>
+        </div>
+        <div class="kw-badge" style="--c1:#a855f7;--c2:#7c3aed">
+          <span class="kw-en">REALLY HUGE</span><span class="kw-cn">块头太大</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">除起点外没人能与我同格；本该同格的选手被顶到我后面一格。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">块头大到占满一整格，谁想挤上来就被我一屁股怼到身后，天然路障。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="trap">
+      <div class="card-glow" style="--c1:#a855f7;--c2:#7c3aed"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#a855f7;--c2:#7c3aed">🌀</div>
+          <div class="name-box">
+            <div class="cn-name">催眠师</div>
+            <div class="en-name">Hypnotist</div>
+          </div>
+          <div class="type-chip" style="--c1:#a855f7;--c2:#7c3aed">干扰陷阱</div>
+        </div>
+        <div class="kw-badge" style="--c1:#a855f7;--c2:#7c3aed">
+          <span class="kw-en">HSSSSST</span><span class="kw-cn">招之即来</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动前，可把任意一名选手瞬移到我的格子。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">招招手就把别人吸过来，拽到我这格陪我玩，专门打乱别人节奏。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="trap">
+      <div class="card-glow" style="--c1:#a855f7;--c2:#7c3aed"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#a855f7;--c2:#7c3aed">👄</div>
+          <div class="name-box">
+            <div class="cn-name">血盆大口</div>
+            <div class="en-name">M.O.U.T.H.</div>
+          </div>
+          <div class="type-chip" style="--c1:#a855f7;--c2:#7c3aed">干扰陷阱</div>
+        </div>
+        <div class="kw-badge" style="--c1:#a855f7;--c2:#7c3aed">
+          <span class="kw-en">CHOMP</span><span class="kw-cn">一口吞人</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">我停到“正好只有 1 名其他选手”的格子时，那人直接出局。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">一口吞人，停在恰好只有 1 人的格子就把他嚼出局，最凶残的清场怪。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="trap">
+      <div class="card-glow" style="--c1:#a855f7;--c2:#7c3aed"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#a855f7;--c2:#7c3aed">🤓</div>
+          <div class="name-box">
+            <div class="cn-name">较真怪</div>
+            <div class="en-name">Stickler</div>
+          </div>
+          <div class="type-chip" style="--c1:#a855f7;--c2:#7c3aed">干扰陷阱</div>
+        </div>
+        <div class="kw-badge" style="--c1:#a855f7;--c2:#7c3aed">
+          <span class="kw-en">ACTUALLY...</span><span class="kw-cn">分毫不差</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">其他选手只能“点数刚好”才能冲线；多出一点就原地不动。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">过线必须分毫不差，别人点数超了就死死卡在终点门口过不去，强迫症之神。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="dice">
+      <div class="card-glow" style="--c1:#3b82f6;--c2:#22d3ee"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#3b82f6;--c2:#22d3ee">⚗️</div>
+          <div class="name-box">
+            <div class="cn-name">炼金术士</div>
+            <div class="en-name">Alchemist</div>
+          </div>
+          <div class="type-chip" style="--c1:#3b82f6;--c2:#22d3ee">骰子操控</div>
+        </div>
+        <div class="kw-badge" style="--c1:#3b82f6;--c2:#22d3ee">
+          <span class="kw-en">TRANSMUTE 'N' SCOOT</span><span class="kw-cn">点石成金</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动掷出 1 或 2 时，可以改成移动 4。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">专治手气差。骰子掷出最烂的 1、2 点，直接“炼”成 4 步，烂牌变好牌。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="dice">
+      <div class="card-glow" style="--c1:#3b82f6;--c2:#22d3ee"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#3b82f6;--c2:#22d3ee">🧠</div>
+          <div class="name-box">
+            <div class="cn-name">天才</div>
+            <div class="en-name">Genius</div>
+          </div>
+          <div class="type-chip" style="--c1:#3b82f6;--c2:#22d3ee">骰子操控</div>
+        </div>
+        <div class="kw-badge" style="--c1:#3b82f6;--c2:#22d3ee">
+          <span class="kw-en">THINK GOOD</span><span class="kw-cn">预判自己</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">我可以预言自己主移动会掷几点，猜中就在此回合后再来一回合。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">预判自己的骰子，猜对了直接连走一回合，手气好能滚雪球。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="dice">
+      <div class="card-glow" style="--c1:#3b82f6;--c2:#22d3ee"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#3b82f6;--c2:#22d3ee">🪄</div>
+          <div class="name-box">
+            <div class="cn-name">魔术师</div>
+            <div class="en-name">Magician</div>
+          </div>
+          <div class="type-chip" style="--c1:#3b82f6;--c2:#22d3ee">骰子操控</div>
+        </div>
+        <div class="kw-badge" style="--c1:#3b82f6;--c2:#22d3ee">
+          <span class="kw-en">POOF</span><span class="kw-cn">变两次</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动骰最多可重掷 2 次（必须认最后一次结果）。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">手气不好？变、变、变，最多重掷 2 回博个好点数，但得认最后那把。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="leech">
+      <div class="card-glow" style="--c1:#14b8a6;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#14b8a6;--c2:#22c55e">🎀</div>
+          <div class="name-box">
+            <div class="cn-name">啦啦队长</div>
+            <div class="en-name">Cheerleader</div>
+          </div>
+          <div class="type-chip" style="--c1:#14b8a6;--c2:#22c55e">蹭步坐收</div>
+        </div>
+        <div class="kw-badge" style="--c1:#14b8a6;--c2:#22c55e">
+          <span class="kw-en">RAH RAH</span><span class="kw-cn">加油打气</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动前，可让处于末位的选手移动 2；这样做我自己移动 1。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">给垫底的选手加油，推他 2 步的同时自己顺带蹭 1 步，损人利己两不误。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="leech">
+      <div class="card-glow" style="--c1:#14b8a6;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#14b8a6;--c2:#22c55e">🎲</div>
+          <div class="name-box">
+            <div class="cn-name">骰贩子</div>
+            <div class="en-name">Dicemonger</div>
+          </div>
+          <div class="type-chip" style="--c1:#14b8a6;--c2:#22c55e">蹭步坐收</div>
+        </div>
+        <div class="kw-badge" style="--c1:#14b8a6;--c2:#22c55e">
+          <span class="kw-en">DICEY DEALS</span><span class="kw-cn">开放重掷</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">所有人每回合可重掷一次主移动骰；别人每重掷一次，我就移动 1。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">全场开放“再来一次”服务，别人一改骰、我就白蹭 1 步，坐地收租。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="leech">
+      <div class="card-glow" style="--c1:#14b8a6;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#14b8a6;--c2:#22c55e">😏</div>
+          <div class="name-box">
+            <div class="cn-name">毒舌喷子</div>
+            <div class="en-name">Heckler</div>
+          </div>
+          <div class="type-chip" style="--c1:#14b8a6;--c2:#22c55e">蹭步坐收</div>
+        </div>
+        <div class="kw-badge" style="--c1:#14b8a6;--c2:#22c55e">
+          <span class="kw-en">SCHADENFREUDE</span><span class="kw-cn">幸灾乐祸</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">当某选手回合结束时仍在出发点 1 格范围内（几乎没动），我移动 2。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">专门看别人笑话，谁原地打转没挪窝，我就乐得窜 2 步——别人越惨我越爽。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="leech">
+      <div class="card-glow" style="--c1:#14b8a6;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#14b8a6;--c2:#22c55e">🎩</div>
+          <div class="name-box">
+            <div class="cn-name">跟班</div>
+            <div class="en-name">Lackey</div>
+          </div>
+          <div class="type-chip" style="--c1:#14b8a6;--c2:#22c55e">蹭步坐收</div>
+        </div>
+        <div class="kw-badge" style="--c1:#14b8a6;--c2:#22c55e">
+          <span class="kw-en">VERY GOOD SIRE</span><span class="kw-cn">点头哈腰</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">别人主移动掷出 6 时，我抢在他移动前先移动 2。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">见谁掷出大 6 就赶紧点头哈腰，抢在他前头先蹭 2 步，专蹭别人的好运。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="leech">
+      <div class="card-glow" style="--c1:#14b8a6;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#14b8a6;--c2:#22c55e">🐛</div>
+          <div class="name-box">
+            <div class="cn-name">尺蠖</div>
+            <div class="en-name">Inchworm</div>
+          </div>
+          <div class="type-chip" style="--c1:#14b8a6;--c2:#22c55e">蹭步坐收</div>
+        </div>
+        <div class="kw-badge" style="--c1:#14b8a6;--c2:#22c55e">
+          <span class="kw-en">WRIGGLE</span><span class="kw-cn">雁过拔毛</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">别人主移动掷出 1 时，他这步作废、改由我移动 1。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">谁倒霉掷了个 1，那步就归我，我扭一扭走 1 格，专捡别人的霉运。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="leech">
+      <div class="card-glow" style="--c1:#14b8a6;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#14b8a6;--c2:#22c55e">🐌</div>
+          <div class="name-box">
+            <div class="cn-name">挪挪</div>
+            <div class="en-name">Scoocher</div>
+          </div>
+          <div class="type-chip" style="--c1:#14b8a6;--c2:#22c55e">蹭步坐收</div>
+        </div>
+        <div class="kw-badge" style="--c1:#14b8a6;--c2:#22c55e">
+          <span class="kw-en">SCOOCH SCOOCH</span><span class="kw-cn">蹭局王</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">任何选手的能力一触发，我就移动 1。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">全场技能一响我就蹭 1 步，什么都不用干、坐等别人触发，稳赚的蹭局王。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="leech">
+      <div class="card-glow" style="--c1:#14b8a6;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#14b8a6;--c2:#22c55e">🐟</div>
+          <div class="name-box">
+            <div class="cn-name">吸盘鱼</div>
+            <div class="en-name">Suckerfish</div>
+          </div>
+          <div class="type-chip" style="--c1:#14b8a6;--c2:#22c55e">蹭步坐收</div>
+        </div>
+        <div class="kw-badge" style="--c1:#14b8a6;--c2:#22c55e">
+          <span class="kw-en">SUCKER!</span><span class="kw-cn">吸附蹭车</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">与我同格的选手一移动，我可以跟着一起移到他的新位置。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">吸在别人身上蹭顺风车，他去哪我去哪，抱大腿抱到底。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="leech">
+      <div class="card-glow" style="--c1:#14b8a6;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#14b8a6;--c2:#22c55e">⚓</div>
+          <div class="name-box">
+            <div class="cn-name">船长</div>
+            <div class="en-name">Skipper</div>
+          </div>
+          <div class="type-chip" style="--c1:#14b8a6;--c2:#22c55e">蹭步坐收</div>
+        </div>
+        <div class="kw-badge" style="--c1:#14b8a6;--c2:#22c55e">
+          <span class="kw-en">SALTY DOG</span><span class="kw-cn">插队上</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">任何选手主移动掷出 1 时，下一个轮到我行动。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">谁掷了个 1 就该我上，直接插队抢下一个回合，见缝插针的老油条。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="copy">
+      <div class="card-glow" style="--c1:#f59e0b;--c2:#fbbf24"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#f59e0b;--c2:#fbbf24">🐱</div>
+          <div class="name-box">
+            <div class="cn-name">山寨猫</div>
+            <div class="en-name">Copycat</div>
+          </div>
+          <div class="type-chip" style="--c1:#f59e0b;--c2:#fbbf24">复制预测</div>
+        </div>
+        <div class="kw-badge" style="--c1:#f59e0b;--c2:#fbbf24">
+          <span class="kw-en">COPY THAT</span><span class="kw-cn">抄作业</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">我持续拥有当前领跑者的能力；若并列领先由我挑。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">永远抄第一名的作业，谁领先我就白嫖谁的技能，随场上形势实时切换。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="copy">
+      <div class="card-glow" style="--c1:#f59e0b;--c2:#fbbf24"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#f59e0b;--c2:#fbbf24">🥚</div>
+          <div class="name-box">
+            <div class="cn-name">神秘蛋</div>
+            <div class="en-name">Egg</div>
+          </div>
+          <div class="type-chip" style="--c1:#f59e0b;--c2:#fbbf24">复制预测</div>
+        </div>
+        <div class="kw-badge" style="--c1:#f59e0b;--c2:#fbbf24">
+          <span class="kw-en">SCRAMBLE</span><span class="kw-cn">开盲盒</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">开赛前从牌堆抽 3 张新角色选 1 个，我获得它的能力。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">开局摇身一变，从 3 个里挑一个技能上身，纯开盲盒、赛前定终身。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="copy">
+      <div class="card-glow" style="--c1:#f59e0b;--c2:#fbbf24"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#f59e0b;--c2:#fbbf24">🎯</div>
+          <div class="name-box">
+            <div class="cn-name">军师</div>
+            <div class="en-name">Mastermind</div>
+          </div>
+          <div class="type-chip" style="--c1:#f59e0b;--c2:#fbbf24">复制预测</div>
+        </div>
+        <div class="kw-badge" style="--c1:#f59e0b;--c2:#fbbf24">
+          <span class="kw-en">KNOW-IT-ALL</span><span class="kw-cn">开局下注</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">首回合开始时预言谁会赢；猜中则比赛立即结束、我拿第 2 名。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">开局赌谁能第一，赌对了当场收工、我白捡个亚军积分，是个赌狗。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="copy">
+      <div class="card-glow" style="--c1:#f59e0b;--c2:#fbbf24"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#f59e0b;--c2:#fbbf24">👯</div>
+          <div class="name-box">
+            <div class="cn-name">双胞胎</div>
+            <div class="en-name">Twin</div>
+          </div>
+          <div class="type-chip" style="--c1:#f59e0b;--c2:#fbbf24">复制预测</div>
+        </div>
+        <div class="kw-badge" style="--c1:#f59e0b;--c2:#fbbf24">
+          <span class="kw-en">DOUBLE DIP</span><span class="kw-cn">复刻冠军</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">开赛前，可挑一个赢过之前比赛的角色，用它的能力出战。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">谁赢过我就复制谁，专抄上届冠军的作业，越到后面越强。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="social">
+      <div class="card-glow" style="--c1:#ec4899;--c2:#f472b6"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ec4899;--c2:#f472b6">📣</div>
+          <div class="name-box">
+            <div class="cn-name">教练</div>
+            <div class="en-name">Coach</div>
+          </div>
+          <div class="type-chip" style="--c1:#ec4899;--c2:#f472b6">互动社交</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ec4899;--c2:#f472b6">
+          <span class="kw-en">GOOD HUSTLE</span><span class="kw-cn">团队激励</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">和我同格的所有人（包括我自己）主移动 +1。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">站我这格就给你打鸡血，大家一起主移动 +1。自己也吃这个 buff，双赢。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="social">
+      <div class="card-glow" style="--c1:#ec4899;--c2:#f472b6"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ec4899;--c2:#f472b6">⚔️</div>
+          <div class="name-box">
+            <div class="cn-name">决斗者</div>
+            <div class="en-name">Duelist</div>
+          </div>
+          <div class="type-chip" style="--c1:#ec4899;--c2:#f472b6">互动社交</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ec4899;--c2:#f472b6">
+          <span class="kw-en">DUEL!</span><span class="kw-cn">单挑</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">任何选手与我同格时，我可喊决斗：双方掷骰，点大者移动 2，平局算我赢。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">同格就开单挑，比大小赢的走 2 步，平手也算我的。一回合能连挑好几个。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="social">
+      <div class="card-glow" style="--c1:#ec4899;--c2:#f472b6"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ec4899;--c2:#f472b6">🎉</div>
+          <div class="name-box">
+            <div class="cn-name">派对咖</div>
+            <div class="en-name">Party Animal</div>
+          </div>
+          <div class="type-chip" style="--c1:#ec4899;--c2:#f472b6">互动社交</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ec4899;--c2:#f472b6">
+          <span class="kw-en">ANIMAL MAGNETISM</span><span class="kw-cn">人气磁铁</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动前，全场所有选手向我靠近 1 格；每个与我同格者给我主移动 +1。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">全场往我这凑热闹，来的人越多我跑得越快——聚人气就是聚速度。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="social">
+      <div class="card-glow" style="--c1:#ec4899;--c2:#f472b6"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ec4899;--c2:#f472b6">💘</div>
+          <div class="name-box">
+            <div class="cn-name">浪漫者</div>
+            <div class="en-name">Romantic</div>
+          </div>
+          <div class="type-chip" style="--c1:#ec4899;--c2:#f472b6">互动社交</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ec4899;--c2:#f472b6">
+          <span class="kw-en">AH, LOVE!</span><span class="kw-cn">见不得成双</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">任何选手停到“正好 2 人”的格子时，我移动 2。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">见不得别人成双成对，谁俩凑一格我就吃着狗粮窜 2 步，全场撮合大师。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="social">
+      <div class="card-glow" style="--c1:#ec4899;--c2:#f472b6"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#ec4899;--c2:#f472b6">💡</div>
+          <div class="name-box">
+            <div class="cn-name">电灯泡</div>
+            <div class="en-name">Third Wheel</div>
+          </div>
+          <div class="type-chip" style="--c1:#ec4899;--c2:#f472b6">互动社交</div>
+        </div>
+        <div class="kw-badge" style="--c1:#ec4899;--c2:#f472b6">
+          <span class="kw-en">ROLL THROUGH</span><span class="kw-cn">插足小情侣</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动前，可瞬移到任意“正好 2 人”的格子。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">专门插足小情侣，哪格站着 2 人我就瞬移过去当电灯泡，位移贼灵活。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="score">
+      <div class="card-glow" style="--c1:#84cc16;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#84cc16;--c2:#22c55e">🥺</div>
+          <div class="name-box">
+            <div class="cn-name">可爱废柴</div>
+            <div class="en-name">Lovable Loser</div>
+          </div>
+          <div class="type-chip" style="--c1:#84cc16;--c2:#22c55e">得分赖皮</div>
+        </div>
+        <div class="kw-badge" style="--c1:#84cc16;--c2:#22c55e">
+          <span class="kw-en">D'AWW</span><span class="kw-cn">惨兮兮</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">主移动前，若我独自垫底，就白拿 1 分。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">越惨越吃香，独自垫底就有人心疼白送 1 分——躺平摆烂也能攒分。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-type="score">
+      <div class="card-glow" style="--c1:#84cc16;--c2:#22c55e"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar" style="--c1:#84cc16;--c2:#22c55e">🪨</div>
+          <div class="name-box">
+            <div class="cn-name">西西弗斯</div>
+            <div class="en-name">Sisyphus</div>
+          </div>
+          <div class="type-chip" style="--c1:#84cc16;--c2:#22c55e">得分赖皮</div>
+        </div>
+        <div class="kw-badge" style="--c1:#84cc16;--c2:#22c55e">
+          <span class="kw-en">KEEP ROLLIN'</span><span class="kw-cn">推石头</span>
+        </div>
+        <div class="sec">
+          <div class="sec-label">📜 官方技能</div>
+          <div class="official">开赛前先拿 4 分；主移动掷出 6 时不移动，改为瞬移回起点并扣 1 分。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label">💬 大白话</div>
+          <div class="spoken">先甜后苦：白给 4 分，但一掷到 6 就被打回起点还扣 1 分，永远推石头的苦命人。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="tag-row">
+      <span>掷骰赛跑</span><span>角色轮抽</span><span>不对称异能</span><span>聚会桌游</span><span>愚骰游戏</span>
+    </div>
+    <p>《魔法运动员》Magical Athlete｜原设计 石田贵志 · 改良 Richard Garfield（万智牌之父）· 发行 CMYK</p>
+    <p>技能资料整理自官方英文规则书与中文玩家指南，口语解释为便于新手理解的通俗转述，正式规则以官方卡面为准。</p>
+    <p style="margin-top:10px;opacity:.6">共 36 名选手 · 分 7 大流派 · 点上方标签可筛选</p>
+    <p style="margin-top:14px">
+      <a href="魔法运动员-cmyk画廊.html">CMYK 角色画廊</a> ·
+      <a href="魔法运动员-cmyk画廊.html#faq">模糊问题官方裁定</a> ·
+      <a href="魔法运动员-速查表.html">可打印速查表</a>
+    </p>
+  </div>
+</div>
+
+<script>
+const btns=document.querySelectorAll('.fbtn'),cards=document.querySelectorAll('.card');
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  const f=b.dataset.f;
+  cards.forEach(c=>{
+    const show=(f==='all'||c.dataset.type===f);
+    c.classList.toggle('hide',!show);
+  });
+}));
+</script>
+</body>
+</html>

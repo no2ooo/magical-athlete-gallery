@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>魔法运动员 · 36 角色速查表（可打印）</title>
+<style>
+  :root{--tx:#111;--mut:#555;--line:#ddd;--bg:#fff;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--tx);background:var(--bg);line-height:1.45;padding:16px 18px 40px}
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;border-bottom:3px solid #111;padding-bottom:10px;margin-bottom:14px}
+  h1{font-size:22px;letter-spacing:.5px}
+  .meta{font-size:12px;color:var(--mut);text-align:right}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+  .toolbar button,.toolbar a{font-size:13px;padding:8px 12px;border:1px solid #111;background:#111;color:#fff;cursor:pointer;text-decoration:none}
+  .toolbar a.secondary{background:#fff;color:#111}
+  .rules{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:16px}
+  .rules div{border:1px solid var(--line);padding:8px 10px;font-size:12px}
+  .rules b{display:block;font-size:12px;margin-bottom:3px}
+  .iron{border-color:#e11d48!important;background:#fff1f2}
+  h2{font-size:15px;margin:16px 0 8px;display:flex;align-items:center;gap:8px;page-break-after:avoid}
+  h2 i{width:10px;height:10px;display:inline-block;border-radius:2px}
+  h2 small{color:var(--mut);font-weight:600}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.cards{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-left:4px solid var(--c);padding:8px 9px;font-size:11.5px;break-inside:avoid;page-break-inside:avoid;background:#fafafa}
+  .top{display:flex;justify-content:space-between;gap:6px;font-size:10px;color:var(--mut);margin-bottom:2px}
+  .kw{color:var(--c);font-weight:700}
+  .name{font-weight:800;font-size:13px;margin-bottom:4px}
+  .en{font-weight:500;color:var(--mut);font-size:10px;margin-left:4px}
+  .skill{color:#222}
+  .lineups{margin-top:18px;border-top:2px solid #111;padding-top:12px}
+  .lineups h2{margin-top:0}
+  .lineups .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+  .lineups .box{border:1px solid var(--line);padding:10px;font-size:12px}
+  .lineups .box b{display:block;margin-bottom:4px}
+  footer{margin-top:18px;font-size:11px;color:var(--mut);text-align:center}
+  @media print{
+    body{padding:8mm}
+    .toolbar{display:none!important}
+    a{color:inherit;text-decoration:none}
+    .card{background:#fff}
+    header{border-bottom-width:2px}
+  }
+  @page{margin:10mm}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>魔法运动员 · 36 角色速查表</h1>
+    <div style="font-size:12px;color:#555;margin-top:4px">Magical Athlete Quick Reference · 桌面打印 / 手机查阅</div>
+  </div>
+  <div class="meta">2–6 人 · ~30 分钟 · 4 场<br/>每队 4 人 · 第 2 名冲线结束</div>
+</header>
+
+<div class="toolbar">
+  <button type="button" onclick="window.print()">🖨️ 打印 / 另存 PDF</button>
+  <a class="secondary" href="魔法运动员-cmyk画廊.html">← 返回画廊</a>
+  <a class="secondary" href="魔法运动员-策略深挖.md">策略深挖</a>
+</div>
+
+<div class="rules">
+  <div><b>主要移动</b>掷 1d6 前进；技能多围绕它</div>
+  <div><b>经过 Passing</b>从身后起、身前停 → 算经过</div>
+  <div><b>绊倒</b>跳过下一次主要移动</div>
+  <div class="iron"><b>铁律 IRON</b>不会被击退到起点线之后</div>
+  <div><b>传送</b>放子到新格，不算移动</div>
+  <div><b>结算</b>格效果 → 当前玩家 → 顺时针</div>
+</div>
+
+<section class="type-sec">
+  <h2><i style="background:#ff5a4d"></i>加速位移 <small>6</small></h2>
+  <div class="cards"><div class="card" style="--c:#ff5a4d">
+  <div class="top"><span class="no">#01</span><span class="kw">冲劲</span></div>
+  <div class="name">飞艇 <span class="en">Blimp</span></div>
+  <div class="skill">当我在赛道第二个弯道前开始回合，主要移动 +3；在该弯道处或之后，主要移动 -1。</div>
+</div><div class="card" style="--c:#ff5a4d">
+  <div class="top"><span class="no">#02</span><span class="kw">瞬间换位</span></div>
+  <div class="name">人字拖 <span class="en">Flip Flop</span></div>
+  <div class="skill">我的主要移动可以选择不掷骰，改为与另一名参赛者交换位置。</div>
+</div><div class="card" style="--c:#ff5a4d">
+  <div class="top"><span class="no">#03</span><span class="kw">骄兵必败</span></div>
+  <div class="name">兔子 <span class="en">Hare</span></div>
+  <div class="skill">我的主要移动 +2；当回合开始时我独自领跑，则跳过这次主要移动。</div>
+</div><div class="card" style="--c:#ff5a4d">
+  <div class="top"><span class="no">#04</span><span class="kw">踩头过河</span></div>
+  <div class="name">跳跳蟾 <span class="en">Leaptoad</span></div>
+  <div class="skill">移动时，我会跳过有其他选手的格子（不计入步数）。</div>
+</div><div class="card" style="--c:#ff5a4d">
+  <div class="top"><span class="no">#05</span><span class="kw">稳定输出</span></div>
+  <div class="name">大长腿 <span class="en">Legs</span></div>
+  <div class="skill">我可以不掷骰，改为直接前进 5 格。</div>
+</div><div class="card" style="--c:#ff5a4d">
+  <div class="top"><span class="no">#06</span><span class="kw">一键加速</span></div>
+  <div class="name">火箭科学家 <span class="en">Rocket Scientist</span></div>
+  <div class="skill">主要移动掷骰时，我可以移动掷出点数的两倍；这样做完就摔倒（跳过下次主要移动）。</div>
+</div></div>
+</section><section class="type-sec">
+  <h2><i style="background:#a855f7"></i>干扰陷阱 <small>8</small></h2>
+  <div class="cards"><div class="card" style="--c:#a855f7">
+  <div class="top"><span class="no">#07</span><span class="kw">鸡脚小屋</span></div>
+  <div class="name">芭芭雅嘎 <span class="en">Baba Yaga</span></div>
+  <div class="skill">我能绊倒任何停到与我同格的选手（跳过其下一次主要移动）。</div>
+</div><div class="card" style="--c:#a855f7">
+  <div class="top"><span class="no">#08</span><span class="kw">尥蹶子</span></div>
+  <div class="name">半人马 <span class="en">Centaur</span></div>
+  <div class="skill">当我经过一名选手时，他们后退 2 格（但不会被击退到起点线之后）。</div>
+</div><div class="card" style="--c:#a855f7">
+  <div class="top"><span class="no">#09</span><span class="kw">香蕉皮</span></div>
+  <div class="name">香蕉 <span class="en">Banana</span></div>
+  <div class="skill">我能绊倒任何经过我的选手（踩到香蕉皮滑倒，跳过其下次主要移动）。</div>
+</div><div class="card" style="--c:#a855f7">
+  <div class="top"><span class="no">#10</span><span class="kw">全场减速</span></div>
+  <div class="name">黏黏怪 <span class="en">Gunk</span></div>
+  <div class="skill">其他所有选手的主要移动 -1。</div>
+</div><div class="card" style="--c:#a855f7">
+  <div class="top"><span class="no">#11</span><span class="kw">块头太大</span></div>
+  <div class="name">巨婴 <span class="en">Huge Baby</span></div>
+  <div class="skill">除起点外，没有人能与我同格；每当将要发生，改为把那名选手放到我身后一格。</div>
+</div><div class="card" style="--c:#a855f7">
+  <div class="top"><span class="no">#12</span><span class="kw">招之即来</span></div>
+  <div class="name">催眠师 <span class="en">Hypnotist</span></div>
+  <div class="skill">在我的主要移动前，我可以将一名参赛者扭曲传送到我的格子。</div>
+</div><div class="card" style="--c:#a855f7">
+  <div class="top"><span class="no">#13</span><span class="kw">一口吞人</span></div>
+  <div class="name">血盆大口 <span class="en">M.O.U.T.H.</span></div>
+  <div class="skill">当我停下的格子上有其他人，他们会被淘汰出局。</div>
+</div><div class="card" style="--c:#a855f7">
+  <div class="top"><span class="no">#14</span><span class="kw">分毫不差</span></div>
+  <div class="name">较真怪 <span class="en">Stickler</span></div>
+  <div class="skill">其他选手只能移动「确切」格数来冲线，若会移动过量，就干脆不移动。</div>
+</div></div>
+</section><section class="type-sec">
+  <h2><i style="background:#3b82f6"></i>骰子操控 <small>3</small></h2>
+  <div class="cards"><div class="card" style="--c:#3b82f6">
+  <div class="top"><span class="no">#15</span><span class="kw">点石成金</span></div>
+  <div class="name">炼金术士 <span class="en">Alchemist</span></div>
+  <div class="skill">当我在主要移动掷出 1 或 2 时，我可以改为移动 4 格。</div>
+</div><div class="card" style="--c:#3b82f6">
+  <div class="top"><span class="no">#16</span><span class="kw">预判自己</span></div>
+  <div class="name">天才 <span class="en">Genius</span></div>
+  <div class="skill">我可以预测自己主要移动会掷出的点数；若猜对，本回合结束后我再进行一个额外回合。</div>
+</div><div class="card" style="--c:#3b82f6">
+  <div class="top"><span class="no">#17</span><span class="kw">变两次</span></div>
+  <div class="name">魔术师 <span class="en">Magician</span></div>
+  <div class="skill">在我的主要移动中，我最多可以重掷两次骰子。</div>
+</div></div>
+</section><section class="type-sec">
+  <h2><i style="background:#14b8a6"></i>蹭步坐收 <small>8</small></h2>
+  <div class="cards"><div class="card" style="--c:#14b8a6">
+  <div class="top"><span class="no">#18</span><span class="kw">加油打气</span></div>
+  <div class="name">啦啦队长 <span class="en">Cheerleader</span></div>
+  <div class="skill">在我的主要移动前，我可以让排在最后的选手移动 2 格，然后我移动 1 格。</div>
+</div><div class="card" style="--c:#14b8a6">
+  <div class="top"><span class="no">#19</span><span class="kw">开放重掷</span></div>
+  <div class="name">骰贩子 <span class="en">Dicemonger</span></div>
+  <div class="skill">每位选手每回合都可以重置一次自己的主要移动骰子。</div>
+</div><div class="card" style="--c:#14b8a6">
+  <div class="top"><span class="no">#20</span><span class="kw">幸灾乐祸</span></div>
+  <div class="name">毒舌喷子 <span class="en">Heckler</span></div>
+  <div class="skill">当某角色在回合结束时的位置与回合开始时相差不超过 1 格，我移动 2 格。</div>
+</div><div class="card" style="--c:#14b8a6">
+  <div class="top"><span class="no">#21</span><span class="kw">点头哈腰</span></div>
+  <div class="name">跟班 <span class="en">Lackey</span></div>
+  <div class="skill">其他玩家主要移动掷到 6 时，嘿嘿，我先跑 2 格。</div>
+</div><div class="card" style="--c:#14b8a6">
+  <div class="top"><span class="no">#22</span><span class="kw">雁过拔毛</span></div>
+  <div class="name">尺蠖 <span class="en">Inchworm</span></div>
+  <div class="skill">当其他玩家主要移动掷出 1 时，他们跳过此次移动，而我移动 1 格。</div>
+</div><div class="card" style="--c:#14b8a6">
+  <div class="top"><span class="no">#23</span><span class="kw">蹭局王</span></div>
+  <div class="name">挪挪 <span class="en">Scoocher</span></div>
+  <div class="skill">其他选手技能触发时，我移动 1 格。</div>
+</div><div class="card" style="--c:#14b8a6">
+  <div class="top"><span class="no">#24</span><span class="kw">吸附蹭车</span></div>
+  <div class="name">吸盘鱼 <span class="en">Suckerfish</span></div>
+  <div class="skill">当与我同格的一名选手移动时，我可以跟着移动到他的新格子。</div>
+</div><div class="card" style="--c:#14b8a6">
+  <div class="top"><span class="no">#25</span><span class="kw">插队上</span></div>
+  <div class="name">船长 <span class="en">Skipper</span></div>
+  <div class="skill">当任何人的主要移动掷出 1 时，我在回合顺序里变成下一个行动者。</div>
+</div></div>
+</section><section class="type-sec">
+  <h2><i style="background:#f59e0b"></i>复制预测 <small>4</small></h2>
+  <div class="cards"><div class="card" style="--c:#f59e0b">
+  <div class="top"><span class="no">#26</span><span class="kw">抄作业</span></div>
+  <div class="name">山寨猫 <span class="en">Copycat</span></div>
+  <div class="skill">我拥有当前领先选手的技能；若并列领先，由我选择其中一个。</div>
+</div><div class="card" style="--c:#f59e0b">
+  <div class="top"><span class="no">#27</span><span class="kw">开盲盒</span></div>
+  <div class="name">神秘蛋 <span class="en">Egg</span></div>
+  <div class="skill">我的比赛开始前，我从牌堆抽 3 张新的选手卡，选择其中一张，我便拥有该角色技能。</div>
+</div><div class="card" style="--c:#f59e0b">
+  <div class="top"><span class="no">#28</span><span class="kw">开局下注</span></div>
+  <div class="name">军师 <span class="en">Mastermind</span></div>
+  <div class="skill">我在第一回合开始时预测哪名选手获胜；猜对则比赛立刻结束——我或第二名。</div>
+</div><div class="card" style="--c:#f59e0b">
+  <div class="top"><span class="no">#29</span><span class="kw">复刻冠军</span></div>
+  <div class="name">双胞胎 <span class="en">Twin</span></div>
+  <div class="skill">我的回合开始前，我可以选一名在上一场比赛中获胜的参赛者，用他的技能进行本场比赛。</div>
+</div></div>
+</section><section class="type-sec">
+  <h2><i style="background:#ec4899"></i>互动社交 <small>5</small></h2>
+  <div class="cards"><div class="card" style="--c:#ec4899">
+  <div class="top"><span class="no">#30</span><span class="kw">团队激励</span></div>
+  <div class="name">教练 <span class="en">Coach</span></div>
+  <div class="skill">所有与我同格的选手（包括我自己）主要移动时 +1。</div>
+</div><div class="card" style="--c:#ec4899">
+  <div class="top"><span class="no">#31</span><span class="kw">单挑</span></div>
+  <div class="name">决斗者 <span class="en">Duelist</span></div>
+  <div class="skill">每当有选手与我同格，我可以大喊「决斗」，双方各掷一次骰子，点数高者移动 2 格，平局我赢。</div>
+</div><div class="card" style="--c:#ec4899">
+  <div class="top"><span class="no">#32</span><span class="kw">人气磁铁</span></div>
+  <div class="name">派对咖 <span class="en">Party Animal</span></div>
+  <div class="skill">在我的主要移动前，所有选手向我移动 1 格；与我同格的每一名其他选手，都使我的主要移动 +1。</div>
+</div><div class="card" style="--c:#ec4899">
+  <div class="top"><span class="no">#33</span><span class="kw">见不得成双</span></div>
+  <div class="name">浪漫者 <span class="en">Romantic</span></div>
+  <div class="skill">当任何人停在恰好还有另一名选手的格子上时，我移动 2 格。</div>
+</div><div class="card" style="--c:#ec4899">
+  <div class="top"><span class="no">#34</span><span class="kw">插足小情侣</span></div>
+  <div class="name">电灯泡 <span class="en">Third Wheel</span></div>
+  <div class="skill">在我的主要移动前，我可以传送到恰好有两名选手的格子。</div>
+</div></div>
+</section><section class="type-sec">
+  <h2><i style="background:#84cc16"></i>得分赖皮 <small>2</small></h2>
+  <div class="cards"><div class="card" style="--c:#84cc16">
+  <div class="top"><span class="no">#35</span><span class="kw">惨兮兮</span></div>
+  <div class="name">可爱废柴 <span class="en">Lovable Loser</span></div>
+  <div class="skill">如果我单独垫底，在我的主要移动前，我获得 1 个分数筹码。</div>
+</div><div class="card" style="--c:#84cc16">
+  <div class="top"><span class="no">#36</span><span class="kw">推石头</span></div>
+  <div class="name">西西弗斯 <span class="en">Sisyphus</span></div>
+  <div class="skill">我的回合开始前，我获得 4 个分数筹码；当我的主要移动掷出 6，我传送回起点并失去 1 个分数筹码。</div>
+</div></div>
+</section>
+
+<section class="lineups">
+  <h2>推荐编队（速记）</h2>
+  <div class="grid">
+    <div class="box"><b>A 蹭步引擎</b>骰贩子 + 挪挪 + 派对咖 + 魔术师</div>
+    <div class="box"><b>B 复制统治</b>山寨猫 + 飞艇/催眠 + 香蕉 + 大长腿</div>
+    <div class="box"><b>C 控制绞肉</b>较真怪 + 香蕉 + 芭芭雅嘎 + 黏黏怪</div>
+    <div class="box"><b>D 后期王牌</b>火箭科学家 + 天才 + 双胞胎 + 军师</div>
+    <div class="box"><b>E 新手均衡</b>大长腿 + 香蕉 + 魔术师 + 啦啦队长</div>
+    <div class="box"><b>出场顺序</b>①稳输出 ②中强/复制 ③全局互动 ④爆发王牌</div>
+  </div>
+</section>
+
+<footer>数据同步自本目录图鉴 · 细则以官方规则书为准 · BUILD 2026-07-15</footer>
+</body>
+</html>

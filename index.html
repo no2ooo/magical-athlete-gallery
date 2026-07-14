@@ -1,22 +1,47 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="neon">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="魔法运动员 Magical Athlete · 36 角色画廊 / 规则 / 策略"/>
 <title>魔法运动员 · 角色画廊</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet"/>
 <style>
-  :root{
+  :root, [data-theme="neon"]{
     --bg:#03050a; --brand:#2f76e5; --teal:#1f4a55;
     --tx:#e8ecf2; --mut:rgba(232,236,242,.45); --line:rgba(255,255,255,.09);
+    --nav-bg:rgba(3,5,10,.88); --chip-tx:#000;
+    --modal-grad:linear-gradient(160deg,#0a0f1c,#05070d);
+    --gold-accent:#f6db44;
+  }
+  [data-theme="gold"]{
+    --bg:#1a1205; --brand:#daa520; --teal:#8b6914;
+    --tx:#fff8e7; --mut:rgba(255,248,231,.48); --line:rgba(218,165,32,.22);
+    --nav-bg:rgba(26,18,5,.9); --chip-tx:#1a1205;
+    --modal-grad:linear-gradient(160deg,#2a1f0a,#140e04);
+    --gold-accent:#ffe566;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   html,body{height:100%;}
-  body{background:var(--bg);color:var(--tx);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  body{background:var(--bg);color:var(--tx);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .5s,color .5s;}
 
-  /* 星空 */
+  /* nav */
+  .nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-brand{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:700;text-decoration:none;white-space:nowrap;}
+  .nav-links{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;}
+  .nav-links a{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:7px 10px;border:1px solid transparent;transition:.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--tx);border-color:var(--brand);background:color-mix(in srgb,var(--brand) 14%,transparent);}
+  .nav-actions{display:flex;align-items:center;gap:8px;}
+  .theme-toggle{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.03);padding:6px 10px;border-radius:999px;user-select:none;}
+  .theme-toggle:hover{border-color:var(--brand);color:var(--tx);}
+  .theme-knob{width:34px;height:18px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid var(--line);position:relative;transition:.3s;}
+  .theme-knob i{position:absolute;top:1px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--brand);transition:transform .3s,background .3s;}
+  [data-theme="gold"] .theme-knob i{transform:translateX(14px);background:var(--gold-accent);}
+  .theme-toggle b{color:var(--gold-accent);font-weight:700;}
+
   #stars{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
   .star{position:absolute;border-radius:50%;background:#fff;animation:tw 3s infinite ease-in-out;}
   @keyframes tw{0%,100%{opacity:.18;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
@@ -27,8 +52,7 @@
   .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 38%,rgba(0,0,0,.6) 100%);}
   .wrap{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 22px 90px;}
 
-  /* 标题区 */
-  .hero{text-align:center;padding:84px 0 50px;}
+  .hero{text-align:center;padding:72px 0 42px;}
   .eq{display:inline-flex;align-items:flex-end;gap:4px;height:30px;margin-bottom:22px;}
   .eq span{width:4px;height:100%;background:var(--brand);border-radius:2px;transform-origin:center bottom;animation:eq 1.1s infinite ease-in-out;opacity:.85;}
   @keyframes eq{0%,100%{transform:scaleY(.22)}50%{transform:scaleY(1)}}
@@ -36,14 +60,16 @@
   .sub{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mut);}
   .counter{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--brand);letter-spacing:.1em;}
   .counter b{color:#fff;}
+  .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px;}
+  .badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.08em;border:1px solid var(--line);padding:8px 12px;color:var(--mut);}
+  .badge b{color:var(--tx);display:block;font-size:1rem;margin-bottom:2px;}
 
-  /* 筛选 */
-  .filters{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:6px 0 34px;}
+  .filters{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:6px 0 34px;position:sticky;top:52px;z-index:40;padding:10px 0;background:linear-gradient(var(--bg),color-mix(in srgb,var(--bg) 85%,transparent));}
   .fbtn{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--mut);padding:8px 14px;transition:.22s;}
-  .fbtn:hover{color:var(--tx);border-color:rgba(47,118,229,.5);}
-  .fbtn.active{color:#fff;border-color:var(--brand);background:rgba(47,118,229,.16);box-shadow:0 0 18px rgba(47,118,229,.3);}
+  .fbtn:hover{color:var(--tx);border-color:color-mix(in srgb,var(--brand) 50%,transparent);}
+  .fbtn.active{color:#fff;border-color:var(--brand);background:color-mix(in srgb,var(--brand) 16%,transparent);box-shadow:0 0 18px color-mix(in srgb,var(--brand) 30%,transparent);}
 
-  /* 网格 */
+  #racers{scroll-margin-top:80px;}
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
   @media(min-width:680px){.grid{grid-template-columns:repeat(3,1fr);}}
   @media(min-width:1040px){.grid{grid-template-columns:repeat(4,1fr);}}
@@ -53,7 +79,7 @@
   .frame:hover{transform:translateY(-5px);border-color:var(--c);box-shadow:0 14px 40px color-mix(in srgb,var(--c) 30%,transparent);}
   .frame:hover::before{opacity:1;}
   .f-top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:12px;z-index:3;}
-  .f-chip{font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#000;background:var(--c);padding:4px 8px;border-radius:2px;}
+  .f-chip{font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--chip-tx);background:var(--c);padding:4px 8px;border-radius:2px;}
   .f-no{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--mut);}
   .f-art{position:absolute;top:50%;left:50%;transform:translate(-50%,-56%);width:66%;aspect-ratio:1;object-fit:contain;z-index:2;filter:drop-shadow(0 4px 16px rgba(0,0,0,.5));}
   .f-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);font-size:clamp(46px,9vw,68px);filter:drop-shadow(0 4px 16px rgba(0,0,0,.5));z-index:2;}
@@ -63,29 +89,69 @@
   .f-kw{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.06em;color:var(--c);margin-top:5px;}
   .f-over{position:absolute;inset:0;z-index:4;padding:16px;display:flex;align-items:flex-end;background:linear-gradient(0deg,rgba(3,5,10,.96),rgba(3,5,10,.6) 60%,transparent);opacity:0;transition:opacity .3s;}
   .frame:hover .f-over{opacity:1;}
-  .f-over p{font-size:.72rem;line-height:1.6;color:#cfd6e2;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;margin:0;}
+  .f-over p{font-size:.72rem;line-height:1.6;color:#cfd6e2;display:-webkit-box;-webkit-line-clamp:6;line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;margin:0;}
 
-  /* 规则/机制/攻略 section */
-  .section{padding:70px 0;border-top:1px solid var(--line);}
+  .section{padding:70px 0;border-top:1px solid var(--line);scroll-margin-top:72px;}
   .section-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brand);margin-bottom:10px;}
   .section-title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.5rem,3vw,2.2rem);color:#fff;margin-bottom:12px;}
   .section-sub{font-size:.88rem;color:var(--mut);margin-bottom:30px;line-height:1.7;max-width:720px;}
-  .rules-grid,.mech-grid,.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
-  .rule-card,.mech-card,.tip-card{background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(0,0,0,.25));border:1px solid var(--line);border-radius:4px;padding:22px;transition:.3s;}
-  .rule-card:hover,.mech-card:hover,.tip-card:hover{border-color:var(--brand);box-shadow:0 8px 30px rgba(47,118,229,.15);transform:translateY(-3px);}
+  .rules-grid,.mech-grid,.tips-grid,.strat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+  .rule-card,.mech-card,.tip-card,.strat-card{background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(0,0,0,.25));border:1px solid var(--line);border-radius:4px;padding:22px;transition:.3s;}
+  .rule-card:hover,.mech-card:hover,.tip-card:hover,.strat-card:hover{border-color:var(--brand);box-shadow:0 8px 30px color-mix(in srgb,var(--brand) 15%,transparent);transform:translateY(-3px);}
   .rule-icon,.mech-icon,.tip-icon{font-size:28px;margin-bottom:12px;display:block;}
-  .rule-card h3,.mech-card h4,.tip-card h4{font-family:'Fraunces',serif;font-weight:600;color:#fff;margin-bottom:8px;font-size:1.1rem;}
-  .rule-card p,.mech-card p,.tip-card p{font-size:.85rem;line-height:1.7;color:#cfd6e2;}
-  .rule-card code{background:rgba(47,118,229,.15);color:var(--brand);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:.78rem;}
+  .rule-card h3,.mech-card h4,.tip-card h4,.strat-card h4{font-family:'Fraunces',serif;font-weight:600;color:#fff;margin-bottom:8px;font-size:1.1rem;}
+  .rule-card p,.mech-card p,.tip-card p,.strat-card p,.strat-card li{font-size:.85rem;line-height:1.7;color:#cfd6e2;}
+  .strat-card ul{margin:8px 0 0 18px;}
+  .rule-card code,.strat-card code{background:color-mix(in srgb,var(--brand) 15%,transparent);color:var(--brand);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:.78rem;}
   .rule-card.iron{border-color:rgba(244,63,94,.45);background:linear-gradient(160deg,rgba(244,63,94,.08),rgba(0,0,0,.3));}
   .rule-card.iron:hover{border-color:#f43f5e;box-shadow:0 8px 30px rgba(244,63,94,.2);}
   .iron-badge{display:inline-block;background:#f43f5e;color:#fff;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;letter-spacing:.1em;padding:3px 7px;border-radius:2px;margin-left:6px;vertical-align:middle;}
-  .tip-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--brand);letter-spacing:.1em;display:block;margin-bottom:6px;}
+  .tip-num,.strat-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--brand);letter-spacing:.1em;display:block;margin-bottom:6px;}
+  .links-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .links-row a{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.06em;color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 40%,transparent);padding:10px 14px;text-decoration:none;transition:.2s;}
+  .links-row a:hover{background:color-mix(in srgb,var(--brand) 16%,transparent);color:#fff;}
 
-  /* 详情弹窗 */
+
+  /* FAQ accordion */
+  .faq-list{display:flex;flex-direction:column;gap:10px;max-width:920px;}
+  .faq-item{border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(0,0,0,.22));border-radius:4px;overflow:hidden;transition:border-color .25s,box-shadow .25s;}
+  .faq-item[open]{border-color:color-mix(in srgb,var(--brand) 55%,transparent);box-shadow:0 8px 28px color-mix(in srgb,var(--brand) 12%,transparent);}
+  .faq-item summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;padding:16px 18px;user-select:none;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary:hover{background:rgba(255,255,255,.03);}
+  .faq-no{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.12em;color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 40%,transparent);padding:4px 8px;}
+  .faq-q{font-family:'Fraunces',serif;font-weight:600;font-size:1.02rem;color:#fff;line-height:1.35;}
+  .faq-badge{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--brand);padding:4px 9px;white-space:nowrap;}
+  .faq-item[open] .faq-badge{background:#22c55e;}
+  .faq-chev{font-size:.9rem;color:var(--mut);transition:transform .25s;}
+  .faq-item[open] .faq-chev{transform:rotate(180deg);color:var(--brand);}
+  .faq-body{padding:0 18px 18px;border-top:1px solid var(--line);}
+  .faq-tags{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.1em;color:var(--mut);margin:12px 0 14px;text-transform:uppercase;}
+  .faq-split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+  @media(max-width:720px){
+    .faq-item summary{grid-template-columns:auto 1fr auto;grid-template-areas:"no badge chev" "q q q";}
+    .faq-no{grid-area:no}.faq-q{grid-area:q}.faq-badge{grid-area:badge}.faq-chev{grid-area:chev}
+    .faq-split{grid-template-columns:1fr;}
+  }
+  .faq-side{border:1px solid var(--line);padding:12px 14px;background:rgba(0,0,0,.2);}
+  .faq-side .lab,.faq-verdict .lab{display:block;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:6px;}
+  .faq-side.a .lab{color:#f87171;}
+  .faq-side.b .lab{color:#60a5fa;}
+  .faq-side p,.faq-verdict p{font-size:.86rem;line-height:1.7;color:#cfd6e2;}
+  .faq-verdict{border:1px solid color-mix(in srgb,#22c55e 45%,transparent);background:linear-gradient(160deg,rgba(34,197,94,.1),rgba(0,0,0,.25));padding:14px 16px;border-radius:4px;}
+  .faq-verdict .lab{color:#4ade80;}
+  .faq-note{margin-top:10px;font-size:.8rem;line-height:1.65;color:var(--mut);padding-left:12px;border-left:2px solid var(--line);}
+  .faq-priority{margin-top:22px;max-width:920px;border:1px solid var(--line);padding:20px 22px;background:linear-gradient(160deg,rgba(47,118,229,.08),rgba(0,0,0,.25));}
+  .faq-priority h3{font-family:'Fraunces',serif;font-size:1.15rem;color:#fff;margin-bottom:12px;}
+  .faq-priority ol{margin:0 0 12px 18px;color:#cfd6e2;font-size:.88rem;line-height:1.8;}
+  .faq-priority .faq-src{font-size:.75rem;color:var(--mut);line-height:1.6;}
+  .faq-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;}
+  .faq-toolbar button{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--mut);padding:8px 12px;transition:.2s;}
+  .faq-toolbar button:hover{color:var(--tx);border-color:var(--brand);}
+
   .modal{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(3,5,10,.72);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s;}
   .modal.open{opacity:1;pointer-events:auto;}
-  .mcard{position:relative;width:min(460px,94vw);max-height:88vh;overflow-y:auto;background:linear-gradient(160deg,#0a0f1c,#05070d);border:1px solid var(--brand);border-radius:4px;box-shadow:0 0 50px rgba(47,118,229,.28);padding:30px 26px;}
+  .mcard{position:relative;width:min(460px,94vw);max-height:88vh;overflow-y:auto;background:var(--modal-grad);border:1px solid var(--brand);border-radius:4px;box-shadow:0 0 50px color-mix(in srgb,var(--brand) 28%,transparent);padding:30px 26px;}
   .mclose{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--tx);cursor:pointer;font-size:1rem;transition:.3s;z-index:5;}
   .mclose:hover{background:var(--brand);border-color:var(--brand);}
   .m-emoji{font-size:44px;line-height:1;}
@@ -97,26 +163,70 @@
   .m-kw b{letter-spacing:.12em;}
   .m-sec{margin-top:18px;}
   .m-sec h4{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:7px;}
-  .m-off{font-size:.86rem;line-height:1.7;color:#cdd5e2;background:rgba(47,118,229,.08);border-left:3px solid var(--brand);padding:11px 13px;border-radius:0 8px 8px 0;}
+  .m-off{font-size:.86rem;line-height:1.7;color:#cdd5e2;background:color-mix(in srgb,var(--brand) 8%,transparent);border-left:3px solid var(--brand);padding:11px 13px;border-radius:0 8px 8px 0;}
   .m-spk{font-size:.95rem;line-height:1.8;color:#e8ecf2;}
   footer{margin-top:60px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);border-top:1px solid var(--line);padding-top:26px;}
+  @media(max-width:720px){
+    .nav{flex-wrap:wrap;justify-content:center;}
+    .nav-links a{padding:6px 8px;font-size:.6rem;}
+    .filters{top:96px;}
+  }
+  @media print{
+    .nav,.filters,.theme-toggle,#stars,.shoot,.vignette,.modal{display:none!important;}
+    body{background:#fff;color:#000;}
+    .frame{break-inside:avoid;}
+  }
 </style>
 </head>
 <body>
+  <nav class="nav" id="nav">
+    <a class="nav-brand" href="#top">Magical Athlete</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#top" data-sec="top">概览</a>
+      <a href="#racers" data-sec="racers">角色</a>
+      <a href="#rules" data-sec="rules">规则</a>
+      <a href="#mechanics" data-sec="mechanics">机制</a>
+      <a href="#tips" data-sec="tips">攻略</a>
+      <a href="#faq" data-sec="faq">裁定</a>
+      <a href="#strategy" data-sec="strategy">策略</a>
+    </div>
+    <div class="nav-actions">
+      <button type="button" class="theme-toggle" id="themeToggle" title="切换 NEON / GOLD 主题" aria-label="切换主题">
+        <span>NEON</span>
+        <span class="theme-knob"><i></i></span>
+        <b>GOLD</b>
+      </button>
+    </div>
+  </nav>
+
   <div id="stars"></div>
   <div class="shoot a"></div><div class="shoot b"></div>
   <div class="vignette"></div>
 
-  <div class="wrap">
+  <div class="wrap" id="top">
     <div class="hero">
       <div class="eq" id="eq"></div>
       <h1 class="title">Magical Athlete</h1>
       <div class="sub">The Character Gallery · 魔法运动员</div>
-      <div class="counter">@: <b id="cnt">36</b> RACERS IN THIS VERSE</div>
+      <div class="counter">FRAMES: <b id="cnt">36</b> RACERS IN THIS VERSE</div>
+      <div class="badges">
+        <div class="badge"><b>36</b>角色</div>
+        <div class="badge"><b>4</b>每队</div>
+        <div class="badge"><b>2</b>冲线结束</div>
+        <div class="badge"><b>4</b>轮决胜</div>
+      </div>
+      <div class="links-row" style="justify-content:center">
+        <a href="魔法运动员-策略深挖.md">策略深挖 MD</a>
+        <a href="魔法运动员-速查表.html">可打印速查表</a>
+        <a href="#faq">模糊问题裁定</a>
+        <a href="魔法运动员-角色卡牌图鉴.html">卡牌图鉴原版</a>
+      </div>
     </div>
 
-    <div class="filters" id="filters"></div>
-    <div class="grid" id="grid"></div>
+    <section id="racers">
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="grid"></div>
+    </section>
 
     <section class="section" id="rules">
       <div class="section-label">Rules</div>
@@ -128,7 +238,7 @@
         <div class="rule-card"><div class="rule-icon">⚠️</div><h3>绊倒（Stumble）</h3><p>被绊倒的选手跳过下一次主要移动（类似万智牌的横置/tap）。部分技能可以绊倒经过或同格的选手。</p></div>
         <div class="rule-card iron"><div class="rule-icon">🚫</div><h3>⚠️ 击退限制（铁律）<span class="iron-badge">IRON LAW</span></h3><p>任何选手都<strong>不会被击退至起点线之后</strong>。这是游戏的一条铁律！半人马、巨婴等技能受此约束。</p></div>
         <div class="rule-card"><div class="rule-icon">⚖️</div><h3>结算顺序</h3><p>多技能同时生效时：<code>① 格子效果 → ② 当前玩家 → ③ 顺时针其他玩家</code></p></div>
-        <div class="rule-card"><div class="rule-icon">🏆</div><h3>计分方式</h3><p>每场比赛第1名获金奖牌，第2名获银奖牌。4场后总奖牌多者胜。</p></div>
+        <div class="rule-card"><div class="rule-icon">🏆</div><h3>计分方式</h3><p>每场比赛第1名获金奖牌，第2名获银奖牌。4场后总奖牌多者胜。王牌宜留后期。</p></div>
       </div>
     </section>
 
@@ -137,33 +247,219 @@
       <h2 class="section-title">核心机制详解</h2>
       <p class="section-sub">理解这些底层机制，才能在游戏中做出最优决策。</p>
       <div class="mech-grid">
-        <div class="mech-card"><span class="mech-icon">🔄</span><h4>重置骰子</h4><p>每位选手每回合可以重置一次自己的主要移动骰子。头贩子在场上时，这个规则成为全局效果。</p></div>
-        <div class="mech-card"><span class="mech-icon">🧲</span><h4>传送 / 瞬移</h4><p>将棋子放到新的格子上。传送不算作一次移动，但之后仍可执行主要移动。催眠师、第三者等使用此机制。</p></div>
+        <div class="mech-card"><span class="mech-icon">🔄</span><h4>重置骰子</h4><p>每位选手每回合可以重置一次自己的主要移动骰子。骰贩子在场上时，这个规则成为全局效果。</p></div>
+        <div class="mech-card"><span class="mech-icon">🧲</span><h4>传送 / 瞬移</h4><p>将棋子放到新的格子上。传送不算作一次移动，但之后仍可执行主要移动。催眠师、电灯泡等使用此机制。</p></div>
         <div class="mech-card"><span class="mech-icon">👥</span><h4>同格规则</h4><p>多名选手可停在同一格。巨婴禁止任何人（除起点外）与自己同格，违反则移至身后一格。</p></div>
-        <div class="mech-card"><span class="mech-icon">🏁</span><h4>冲线条件</h4><p>较真狂在场时，必须精确移动到终点线，不能越过。火箭科学家可掷两次后决定是否双倍移动。</p></div>
-        <div class="mech-card"><span class="mech-icon">🎭</span><h4>连锁反应</h4><p>派对动物让所有人靠拢，触发吸盘鱼的复制效果。模仿猫持续获得领先者技能。一个技能触发多个连锁。</p></div>
-        <div class="mech-card"><span class="mech-icon">📊</span><h4>分数筹码</h4><p>可爱的失败者落后时获得分数筹码。西西弗斯掷出6点时消耗筹码传送回起点。资源管理型技能。</p></div>
+        <div class="mech-card"><span class="mech-icon">🏁</span><h4>冲线条件</h4><p>较真怪在场时，必须精确移动到终点线，不能越过。火箭科学家可掷两次后决定是否双倍移动。</p></div>
+        <div class="mech-card"><span class="mech-icon">🎭</span><h4>连锁反应</h4><p>派对咖让所有人靠拢，触发吸盘鱼的复制效果。山寨猫持续获得领先者技能。一个技能触发多个连锁。</p></div>
+        <div class="mech-card"><span class="mech-icon">📊</span><h4>分数筹码</h4><p>可爱废柴落后时获得分数筹码。西西弗斯掷出6点时消耗筹码传送回起点。资源管理型技能。</p></div>
       </div>
     </section>
 
     <section class="section" id="tips">
       <div class="section-label">Strategy</div>
       <h2 class="section-title">策略与攻略</h2>
-      <p class="section-sub">来自社区的高阶玩法建议，助你快速掌握制胜技巧。</p>
+      <p class="section-sub">来自社区与图鉴整理的高阶玩法建议。</p>
       <div class="tips-grid">
-        <div class="tip-card"><span class="tip-num">01</span><span class="tip-icon">🏆</span><h4>角色搭配公式</h4><p>建议搭配进攻型 + 辅助型 + 特殊型各一名。例如：炼金术士（加速）+ 拉拉队长（鼓励）+ 魔术师（重掷）+ 蹭蹭怪（复制增益）。</p></div>
-        <div class="tip-card"><span class="tip-num">02</span><span class="tip-icon">🎭</span><h4>模仿猫永远领先</h4><p>保持第一才能持续获得最强技能。注意：如果领先者的技能优先级更高（如巨婴），模仿猫不会受影响——对方的技能优先。</p></div>
-        <div class="tip-card"><span class="tip-num">03</span><span class="tip-icon">🌀</span><h4>头贩子改变底层规则</h4><p>头贩子在场上时，每位选手每回合可重置骰子。配合船长（掷1提前行动）可打乱对手节奏。全局影响型角色。</p></div>
-        <div class="tip-card"><span class="tip-num">04</span><span class="tip-icon">🎪</span><h4>派对动物连锁核心</h4><p>所有选手向你靠拢，与你同格的人越多你的移动加成越大。适合触发蹭蹭怪、浪漫主义者等连锁技能。聚怪战术。</p></div>
+        <div class="tip-card"><span class="tip-num">01</span><span class="tip-icon">🏆</span><h4>角色搭配公式</h4><p>建议搭配进攻型 + 辅助型 + 特殊型各一名。例如：炼金术士（加速）+ 啦啦队长（鼓励）+ 魔术师（重掷）+ 挪挪（复制增益）。</p></div>
+        <div class="tip-card"><span class="tip-num">02</span><span class="tip-icon">🎭</span><h4>山寨猫永远领先</h4><p>保持第一才能持续获得最强技能。注意：如果领先者的技能优先级更高（如巨婴），山寨猫不会压过对方——对方技能优先。</p></div>
+        <div class="tip-card"><span class="tip-num">03</span><span class="tip-icon">🌀</span><h4>骰贩子改变底层规则</h4><p>骰贩子在场上时，每位选手每回合可重置骰子。配合船长（掷1提前行动）可打乱对手节奏。全局影响型角色。</p></div>
+        <div class="tip-card"><span class="tip-num">04</span><span class="tip-icon">🎪</span><h4>派对咖连锁核心</h4><p>所有选手向你靠拢，与你同格的人越多你的移动加成越大。适合触发吸盘鱼、浪漫者等连锁技能。聚怪战术。</p></div>
       </div>
     </section>
 
-    <footer>MAGICAL ATHLETE · CHARACTER GALLERY · 36 RACERS · AGNES CMYK ART</footer>
+
+    <section class="section" id="faq">
+      <div class="section-label">Rulings · FAQ</div>
+      <h2 class="section-title">模糊问题 · 官方裁定</h2>
+      <p class="section-sub">全网争议最大的 8 条规则歧义。点击问题展开：玩家分歧 A/B + 官方定论。含挪挪（蹭蹭怪）联动、半人马多次超越、重掷回档、冲线判定等。</p>
+      <div class="faq-toolbar">
+        <button type="button" id="faqOpenAll">全部展开</button>
+        <button type="button" id="faqCloseAll">全部收起</button>
+      </div>
+      <div class="faq-list" id="faqList">
+        
+<details class="faq-item" id="faq-01">
+  <summary>
+    <span class="faq-no">Q01</span>
+    <span class="faq-q">半人马一次越过多人，蹭蹭怪（挪挪）走几格？</span>
+    <span class="faq-badge">选 B</span>
+    <span class="faq-chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    <div class="faq-tags">半人马 · 挪挪 · 多次触发</div>
+    <div class="faq-split">
+      <div class="faq-side a"><span class="lab">分歧 A</span><p>半人马这是一次能力，不管超几个人只触发 1 次，挪挪仅走 1 格。</p></div>
+      <div class="faq-side b"><span class="lab">分歧 B</span><p>每超过 1 人独立触发一次技能，超 3 人触发 3 次，挪挪走 3 格。</p></div>
+    </div>
+    <div class="faq-verdict"><span class="lab">官方定论 · 选 B</span><p>选 B：每超越 1 名选手 = 独立触发 1 次角色能力。半人马连超 3 人 → 技能结算 3 轮 → 挪挪合计走 3 格。补充：跳跳蟾一次跳跃跳过多人同理，跳 2 人触发 2 次。</p></div>
+    <div class="faq-note">这是单向多次触发，不是闭环死循环，无次数上限。</div>
+  </div>
+</details>
+
+<details class="faq-item" id="faq-02">
+  <summary>
+    <span class="faq-no">Q02</span>
+    <span class="faq-q">角色处于「绊倒」状态，被动能力还生效吗？</span>
+    <span class="faq-badge">选 B</span>
+    <span class="faq-chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    <div class="faq-tags">绊倒 · 香蕉 · 挪挪</div>
+    <div class="faq-split">
+      <div class="faq-side a"><span class="lab">分歧 A</span><p>米宝倒扣 = 角色失效，所有被动关闭，不能触发任何效果。</p></div>
+      <div class="faq-side b"><span class="lab">分歧 B</span><p>绊倒只限制「自己回合掷骰子主移动」，被动能力完全不受影响。</p></div>
+    </div>
+    <div class="faq-verdict"><span class="lab">官方定论 · 选 B</span><p>绊倒仅封禁自己回合的骰子主移动；所有被动、触发类能力全程正常生效。</p></div>
+    <div class="faq-note">举例：倒扣的香蕉依然能绊倒路过的人；倒扣的挪挪依旧会因别人放技能往前走。</div>
+  </div>
+</details>
+
+<details class="faq-item" id="faq-03">
+  <summary>
+    <span class="faq-no">Q03</span>
+    <span class="faq-q">挪挪 + 芭芭雅嘎会不会无限连锁循环？</span>
+    <span class="faq-badge">特殊</span>
+    <span class="faq-chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    <div class="faq-tags">挪挪 · 芭芭雅嘎 · 死循环</div>
+    <div class="faq-split">
+      <div class="faq-side a"><span class="lab">分歧 A</span><p>连锁无限触发，一直走到版图尽头。</p></div>
+      <div class="faq-side b"><span class="lab">分歧 B</span><p>连锁只能结算一轮，强制终止，避免死循环。</p></div>
+    </div>
+    <div class="faq-verdict"><span class="lab">官方定论 · 特殊</span><p>官方对两类连锁特殊区分：① 互相克制、无限往复的闭环（挪挪+芭芭雅嘎）→ 整轮连锁只完整结算 1 次，不再重复触发，防止卡死；② 单向多次触发（半人马连超多人、跳跳蟾多跳）→ 不属于闭环，可以多次结算，无上限。</p></div>
+    <div class="faq-note">流程示意：别人放技能→挪挪前移与芭芭同格→芭芭绊倒→若形成闭环则整轮只结 1 次。</div>
+  </div>
+</details>
+
+<details class="faq-item" id="faq-04">
+  <summary>
+    <span class="faq-no">Q04</span>
+    <span class="faq-q">同格子选手算「领先 / 落后」吗？影响结算顺序吗？</span>
+    <span class="faq-badge">选 B</span>
+    <span class="faq-chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    <div class="faq-tags">同格 · 兔子 · 结算</div>
+    <div class="faq-split">
+      <div class="faq-side a"><span class="lab">分歧 A</span><p>站同一格，分先后到达，有领先顺序。</p></div>
+      <div class="faq-side b"><span class="lab">分歧 B</span><p>同格无先后，既不算领先也不算落后。</p></div>
+    </div>
+    <div class="faq-verdict"><span class="lab">官方定论 · 选 B</span><p>规则原文：两名选手停在同一格子，既不领先、也不落后。</p></div>
+    <div class="faq-note">影响①：兔子等「落后时加成」在平排时无法获得；影响②：同格结算能力时，按玩家座位顺时针依次结算，不看位置先后。</div>
+  </div>
+</details>
+
+<details class="faq-item" id="faq-05">
+  <summary>
+    <span class="faq-no">Q05</span>
+    <span class="faq-q">魔术师重掷骰子后，之前的移动 / 触发算不算数？</span>
+    <span class="faq-badge">选 A</span>
+    <span class="faq-chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    <div class="faq-tags">魔术师 · 重掷 · 撤销</div>
+    <div class="faq-split">
+      <div class="faq-side a"><span class="lab">分歧 A</span><p>重掷等于作废本次行动，之前路过格子、触发的能力全部撤销。</p></div>
+      <div class="faq-side b"><span class="lab">分歧 B</span><p>已经走完的格子触发效果保留，仅替换最终移动步数。</p></div>
+    </div>
+    <div class="faq-verdict"><span class="lab">官方定论 · 选 A</span><p>只要触发重掷骰子，本次所有移动、中途触发的角色能力全部清空作废，完全当作这次没有移动过，用新骰子点数重新走。</p></div>
+    <div class="faq-note">重掷是「整段移动回档」，不是「只改终点」。</div>
+  </div>
+</details>
+
+<details class="faq-item" id="faq-06">
+  <summary>
+    <span class="faq-no">Q06</span>
+    <span class="faq-q">终点前踩线后被能力推回，还能直接夺冠吗？</span>
+    <span class="faq-badge">选 B</span>
+    <span class="faq-chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    <div class="faq-tags">冲线 · 击退 · 名次</div>
+    <div class="faq-split">
+      <div class="faq-side a"><span class="lab">分歧 A</span><p>踩过终点就算完成，已经拿名次，后退无效。</p></div>
+      <div class="faq-side b"><span class="lab">分歧 B</span><p>必须回合结束停在终点才算，被推走就失去名次。</p></div>
+    </div>
+    <div class="faq-verdict"><span class="lab">官方定论 · 选 B</span><p>名次判定节点：完整走完本次移动、所有连锁能力结算完毕后，棋子静止停在终点，才算完成比赛。中途到终点又被推走，无法拿金银奖杯。</p></div>
+    <div class="faq-note">与铁律配合：击退不能越过起点，但终点前的推回完全有效。</div>
+  </div>
+</details>
+
+<details class="faq-item" id="faq-07">
+  <summary>
+    <span class="faq-no">Q07</span>
+    <span class="faq-q">决斗者处于绊倒状态时，还能发起决斗吗？</span>
+    <span class="faq-badge">选 B</span>
+    <span class="faq-chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    <div class="faq-tags">决斗者 · 绊倒 · 主动技</div>
+    <div class="faq-split">
+      <div class="faq-side a"><span class="lab">分歧 A</span><p>绊倒角色失去所有主动能力，不能决斗。</p></div>
+      <div class="faq-side b"><span class="lab">分歧 B</span><p>绊倒仅限制自己掷骰移动，主动技能依旧可用。</p></div>
+    </div>
+    <div class="faq-verdict"><span class="lab">官方定论 · 选 B</span><p>可以决斗。绊倒只限制「每回合基础骰子走路」，角色自带的主动互动能力（决斗、推人、位移）全部正常释放。</p></div>
+    <div class="faq-note">唯一例外：卡面写明「你的主移动阶段」才能释放的效果，绊倒时无法使用。</div>
+  </div>
+</details>
+
+<details class="faq-item" id="faq-08">
+  <summary>
+    <span class="faq-no">Q08</span>
+    <span class="faq-q">起跑多人同起点，半人马开局超越所有人是否触发？</span>
+    <span class="faq-badge">选 B</span>
+    <span class="faq-chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    <div class="faq-tags">起点 · 半人马 · 挪挪</div>
+    <div class="faq-split">
+      <div class="faq-side a"><span class="lab">分歧 A</span><p>起点不算赛道超越，开局挤在一起不触发半人马。</p></div>
+      <div class="faq-side b"><span class="lab">分歧 B</span><p>只要从后方移动到别人前方，就算超越，触发技能。</p></div>
+    </div>
+    <div class="faq-verdict"><span class="lab">官方定论 · 选 B</span><p>起点格子没有特殊豁免。半人马开局摇大点数，一次性越过多名选手，依旧每超一人触发一次技能，挪挪同步多次移动。</p></div>
+    <div class="faq-note">与问题一同一逻辑：每超一人 = 一次独立触发。</div>
+  </div>
+</details>
+
+      </div>
+      
+<div class="faq-priority">
+  <h3>通用结算优先级（官方兜底）</h3>
+  <ol>
+    <li><b>赛道固定格子效果</b> → <b>当前移动玩家骰子行动</b> → <b>全场角色被动</b>（按座位顺时针；同格无领先落后）</li>
+    <li>强制能力（无「可以」字眼）必须执行；带「可以 / can」的能力由玩家自选是否发动</li>
+    <li>所有连锁结算完毕后，再判定绊倒、名次、回合结束状态</li>
+  </ol>
+  <p class="faq-src">来源整理：设计师 FAQ · 桌游库规则补全 · BGG 社区设计师回复。桌面裁定请以最新官方文本为准。</p>
+</div>
+
+    </section>
+
+    <section class="section" id="strategy">
+      <div class="section-label">Deep Dive</div>
+      <h2 class="section-title">类型深挖速览</h2>
+      <p class="section-sub">更完整的编队、出场顺序与克制表见同目录 <code>魔法运动员-策略深挖.md</code>。</p>
+      <div class="strat-grid">
+        <div class="strat-card"><span class="strat-num">LEECH</span><h4>蹭步坐收</h4><p>靠全场事件前进。骰贩子改写重置规则，挪挪吃一切技能触发，吸盘贴车冲线。</p><ul><li>引擎：骰贩 + 挪挪 + 派对</li><li>反制：巨婴拆同格、少互动</li></ul></div>
+        <div class="strat-card"><span class="strat-num">COPY</span><h4>复制预测</h4><p>山寨猫持续挂领先者技能；双胞胎吃上场冠军；军师赌收束。</p><ul><li>猫队先抢第一</li><li>冲突时对方技能优先</li></ul></div>
+        <div class="strat-card"><span class="strat-num">TRAP</span><h4>干扰陷阱</h4><p>香蕉经过绊倒、芭芭同格绊倒、较真怪强制精确冲线。</p><ul><li>守门：香蕉 + 芭芭</li><li>铁律：击退不过起点</li></ul></div>
+        <div class="strat-card"><span class="strat-num">LINEUP</span><h4>出场顺序</h4><p>第1场试探稳输出 → 第2场中强/复制 → 第3场全局互动 → 第4场王牌爆发。</p><ul><li>火箭/天才/军师留后期</li><li>4 场总分，别梭哈第一场</li></ul></div>
+      </div>
+      <div class="links-row">
+        <a href="#faq">8 条官方裁定 FAQ</a>
+        <a href="魔法运动员-策略深挖.md">打开完整策略文档</a>
+        <a href="魔法运动员-速查表.html">打开打印速查表</a>
+      </div>
+    </section>
+
+    <footer>MAGICAL ATHLETE · CHARACTER GALLERY · 36 RACERS · AGNES CMYK ART · BUILD 2026-07-15-v2-faq</footer>
   </div>
 
   <div class="modal" id="modal">
     <div class="mcard" id="mcard">
-      <button class="mclose" id="mclose">✕</button>
+      <button class="mclose" id="mclose" type="button" aria-label="关闭">✕</button>
       <div class="m-emoji" id="mEmoji"></div>
       <img class="m-art" id="mArt" src="" alt="" style="display:none;"/>
       <div class="m-cn" id="mCn"></div>
@@ -181,23 +477,51 @@
   const TYPE_COLOR = {speed:'#ff5a4d',trap:'#a855f7',dice:'#3b82f6',leech:'#14b8a6',copy:'#f59e0b',social:'#ec4899',score:'#84cc16'};
   const TYPE_LABEL = {speed:'加速位移',trap:'干扰陷阱',dice:'骰子操控',leech:'蹭步坐收',copy:'复制预测',social:'互动社交',score:'得分赖皮'};
 
-  // 星空
+  // theme
+  (function(){
+    const root=document.documentElement;
+    const btn=document.getElementById('themeToggle');
+    const saved=localStorage.getItem('ma-theme');
+    if(saved==='gold'||saved==='neon') root.setAttribute('data-theme',saved);
+    btn.addEventListener('click',()=>{
+      const next=root.getAttribute('data-theme')==='gold'?'neon':'gold';
+      root.setAttribute('data-theme',next);
+      localStorage.setItem('ma-theme',next);
+    });
+  })();
+
+  // stars + eq
   (function(){
     const s=document.getElementById('stars'); let html='';
     for(let i=0;i<140;i++){const x=Math.random()*100,y=Math.random()*100,sz=Math.random()*1.8+0.5,d=(Math.random()*3).toFixed(2);html+=`<div class="star" style="left:${x}%;top:${y}%;width:${sz}px;height:${sz}px;animation-delay:${d}s"></div>`;}
     s.innerHTML=html;
   })();
-  // 声波条
   (function(){const e=document.getElementById('eq');let h='';for(let i=0;i<11;i++){const d=(i*0.09).toFixed(2),dur=(0.9+Math.random()*0.5).toFixed(2);h+=`<span style="animation-delay:${d}s;animation-duration:${dur}s"></span>`;}e.innerHTML=h;})();
 
-  // 筛选
+  // nav active on scroll
+  (function(){
+    const links=[...document.querySelectorAll('#navLinks a')];
+    const ids=links.map(a=>a.getAttribute('data-sec'));
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(!en.isIntersecting) return;
+        const id=en.target.id||'top';
+        links.forEach(a=>a.classList.toggle('active', a.getAttribute('data-sec')===id));
+      });
+    },{rootMargin:'-40% 0px -50% 0px',threshold:0});
+    ids.forEach(id=>{
+      const el=id==='top'?document.getElementById('top'):document.getElementById(id);
+      if(el) io.observe(el);
+    });
+  })();
+
+  // filters
   const filters=document.getElementById('filters');
   const typesOrder=['speed','trap','dice','leech','copy','social','score'];
-  let fhtml=`<button class="fbtn active" data-f="all">全部 <span style="opacity:.6">36</span></button>`;
-  typesOrder.forEach(t=>{const n=CHARS.filter(c=>c.type===t).length;fhtml+=`<button class="fbtn" data-f="${t}" style="--c:${TYPE_COLOR[t]}">${TYPE_LABEL[t]} <span style="opacity:.6">${n}</span></button>`;});
+  let fhtml=`<button class="fbtn active" data-f="all" type="button">全部 <span style="opacity:.6">36</span></button>`;
+  typesOrder.forEach(t=>{const n=CHARS.filter(c=>c.type===t).length;fhtml+=`<button class="fbtn" data-f="${t}" type="button" style="--c:${TYPE_COLOR[t]}">${TYPE_LABEL[t]} <span style="opacity:.6">${n}</span></button>`;});
   filters.innerHTML=fhtml;
 
-  // 网格
   const grid=document.getElementById('grid');
   CHARS.forEach((c,i)=>{
     const col=TYPE_COLOR[c.type]||'#2f76e5';
@@ -213,7 +537,6 @@
     grid.appendChild(el);
   });
 
-  // 筛选交互
   filters.addEventListener('click',e=>{
     const b=e.target.closest('.fbtn'); if(!b)return;
     filters.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
@@ -222,7 +545,6 @@
     grid.querySelectorAll('.frame').forEach(fr=>{fr.classList.toggle('hide', f!=='all' && fr.dataset.type!==f);});
   });
 
-  // 弹窗
   const modal=document.getElementById('modal');
   function openModal(c){
     const col=TYPE_COLOR[c.type]||'#2f76e5';
@@ -238,10 +560,12 @@
     document.getElementById('mOff').textContent=c.official;
     document.getElementById('mSpk').textContent=c.spoken||'';
     modal.classList.add('open');
+    document.body.style.overflow='hidden';
   }
-  document.getElementById('mclose').addEventListener('click',()=>modal.classList.remove('open'));
-  modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open');});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('open');});
+  function closeModal(){modal.classList.remove('open');document.body.style.overflow='';}
+  document.getElementById('mclose').addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
   </script>
 </body>
 </html>

@@ -134,6 +134,19 @@
     .nav{flex-wrap:wrap;justify-content:center}
     .hero,.doc-sec,.doc-lead,.toc{padding:16px}
   }
+
+  /* readability */
+  body{font-size:17.5px; line-height:1.75;}
+  h1{font-size:clamp(1.9rem,4vw,2.6rem);}
+  .sub{font-size:1.05rem;}
+  .doc-sec h2{font-size:1.5rem;}
+  .doc-sec h3{font-size:1.15rem;}
+  p,li{font-size:1.02rem;}
+  th,td{font-size:.98rem; padding:12px 14px;}
+  blockquote{font-size:1rem;}
+  [data-theme="paper"]{--tx:#0a0a0a; --mut:rgba(10,10,10,.72);}
+  [data-theme="paper"] .sub, [data-theme="paper"] blockquote{color:rgba(10,10,10,.78);}
+
 </style>
 </head>
 <body>
